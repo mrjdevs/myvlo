@@ -7,7 +7,7 @@ COPY pages /app/pages
 COPY components /app/components
 COPY public /app/public
 COPY layouts /app/layouts
-COPY vlo_app.db /app/vlo_app.db
+COPY icons /app/icons
 COPY schema.sql /app/schema.sql
 
 RUN chmod +x /app/vlo
