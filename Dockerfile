@@ -11,4 +11,4 @@ COPY schema.sql /app/schema.sql
 
 RUN chmod +x /app/vlo
 
-CMD ["/app/vlo", "dev"]
+CMD ["/app/vlo", "serve"]
