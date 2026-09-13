@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-{navbar}
+{{navebar}}
 {{children}}
 </body>
 </html>
