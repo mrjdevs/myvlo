@@ -1,7 +1,6 @@
 FROM debian:bookworm-slim
 
 WORKDIR /app
-COPY .vlo /app/.vlo
 COPY vlo /app/vlo
 COPY pages /app/pages
 COPY components /app/components
