@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLO Framework Test</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+
+<style>
+/* VLO:Badge */
+.vlo-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.vlo-badge.primary { background: #00f5ff; color: #000; }
+.vlo-badge.success { background: #00ff88; color: #000; }
+.vlo-badge.warning { background: #ffaa00; color: #000; }
+/* VLO:Card */
+.card {
+    background: #0d0d0d;
+    border: 1px solid var(--border, #222);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.card-desc {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+/* VLO:Button */
+.vlo-btn{background:#00f5ff;color:#000;padding:12px 24px;border-radius:8px;font-weight:bold;border:none;display:inline-block;text-align:center;cursor:pointer;transition:all 0.2s}.vlo-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,245,255,.3)}.vlo-btn.secondary{background:transparent;color:#00f5ff;border:2px solid #00f5ff}.vlo-btn.ghost{background:transparent;color:#aaa}
+/* VLO:SlotCard */
+.slot-card{background:#111;border:1px solid #333;border-radius:10px;padding:20px;margin:20px 0;color:#eee}
+.slot-header{color:#00f5ff;font-size:1.2rem;font-weight:bold;margin-bottom:15px}
+.slot-body{padding:15px 0}
+.slot-footer{border-top:1px solid #333;padding-top:15px;color:#aaa}
+/* VLO:Input */
+.vlo-input{background:#111;border:2px solid #333;color:#eee;padding:12px 16px;border-radius:8px;width:100%;font-size:1rem;transition:border 0.2s}.vlo-input:focus{outline:none;border-color:#00f5ff;box-shadow:0 0 0 3px rgba(0,245,255,.1)}
+/* VLO:Alert */
+.vlo-alert {
+    padding: 16px 20px;
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+.vlo-alert.info { background: rgba(0,245,255,0.1); border-color: #00f5ff; }
+.vlo-alert.success { background: rgba(0,255,136,0.1); border-color: #00ff88; }
+/* VLO:Toast */
+.vlo-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--card, #111);
+    border: 1px solid var(--border, #333);
+    border-left: 4px solid #00f5ff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: start;
+    min-width: 300px;
+    z-index: 999;
+    animation: toast 4s ease forwards;
+}
+.vlo-toast.short { animation-duration: 3s; }
+.vlo-toast.long { animation-duration: 6s; }
+.vlo-toast.success { border-left-color: #00ff88; }
+.vlo-toast.error { border-left-color: #ff4444; }
+.vlo-toast .icon { font-size: 1.5rem; }
+
+@keyframes toast {
+    0% { transform: translateX(400px); opacity: 0; }
+    8% { transform: translateX(0); opacity: 1; }
+    85% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(400px); opacity: 0; visibility: hidden; }
+}
+/* VLO:Link */
+.vlo-link{background:#00f5ff;color:#000;padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none;display:inline-block;text-align:center;transition:all .2s}.vlo-link:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,245,255,.3)}.vlo-link.secondary{background:transparent;color:#00f5ff;border:2px solid #00f5ff}.vlo-link.ghost{background:transparent;color:#aaa}
+</style>
+</head>
+<body>
+<div class="framework-test">
+    <div class="test-header">
+        <span class="vlo-badge success">VLO 0.5.0</span>
+        <h1>VLO Framework Test 0.5.0</h1>
+        <p>Component engine, props, children, slots, API and runtime verification.</p>
+    </div>
+    <div class="card">
+    <h3>Component Engine</h3>
+    <p class="card-desc">Testing all registered VLO components.</p>
+        <div class="test-grid">
+            <button type="" class="vlo-btn primary" >Primary Button</button>
+            <button type="" class="vlo-btn secondary" >Secondary Button</button>
+            <span class="vlo-badge success">Success Badge</span>
+            <span class="vlo-badge info">Info Badge</span>
+        </div>
+</div>
+    <h2>VLO 0.5.0 Slot Test</h2>
+    <div class="slot-card">
+    <div class="slot-header">
+        Custom Header
+    </div>
+    <div class="slot-body">
+        <p>This is the default slot content.</p>
+    </div>
+    <div class="slot-footer">
+        Custom Footer
+    </div>
+</div>
+    <hr />
+    <h2>Advanced Nested Component Test</h2>
+    <div class="slot-card">
+    <div class="slot-header">
+            <div class="header-main">
+                <span class="vlo-badge">Featured</span>
+                <h2>Advanced Slot Test</h2>
+            </div>
+            <div class="header-actions">
+                <button type="" class="vlo-btn" >Primary Action</button>
+                <button type="" class="vlo-btn" >Secondary Action</button>
+            </div>
+            <p>
+                This header contains multiple elements and nested components.
+            </p>
+    </div>
+    <div class="slot-body">
+        <section class="content-wrapper">
+            <h3>Default Slot Content</h3>
+            <p>
+                This paragraph belongs to the default slot and should appear
+                between the named header and footer slots.
+            </p>
+            <div class="content-grid">
+                <div class="card">
+                    <h4>First Card</h4>
+                    <p>Nested card inside the default slot.</p>
+                    <button type="" class="vlo-btn" >Card Action</button>
+</div>
+                <div class="card">
+                    <h4>Second Card</h4>
+                    <p>Another nested component inside default content.</p>
+                    <span class="vlo-badge">Nested Badge</span>
+                    <button type="" class="vlo-btn" >Another Action</button>
+</div>
+            </div>
+            <div class="form-section">
+                <label>User Information</label>
+                <Input type="text" placeholder="Enter username" class="vlo-input"  />
+                <Input type="email" placeholder="Enter email" class="vlo-input"  />
+                <div class="form-actions">
+                    <button type="" class="vlo-btn" >Save</button>
+                    <button type="" class="vlo-btn" >Cancel</button>
+                </div>
+            </div>
+            <div class="vlo-alert">
+                <strong>Important:</strong>
+                This alert is nested inside the default slot.
+</div>
+            <div class="nested-content">
+                <h4>Deeply Nested Content</h4>
+                <div>
+                    <p>Level 1</p>
+                    <div>
+                        <p>Level 2</p>
+                        <div>
+                            <p>Level 3</p>
+                            <span class="vlo-badge">Deep Badge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="slot-footer">
+            <div class="footer-info">
+                <span class="vlo-badge">Status: Active</span>
+                <span>Footer information</span>
+            </div>
+            <div class="footer-actions">
+                <button type="" class="vlo-btn" >Back</button>
+                <button type="" class="vlo-btn" >Reset</button>
+                <button type="" class="vlo-btn" >Continue</button>
+            </div>
+            <p>
+                Footer can contain multiple elements, text, and components.
+            </p>
+    </div>
+</div>
+    <hr />
+    <div class="card">
+    <h3>Input Component</h3>
+    <p class="card-desc">Testing input props and classes.</p>
+        <Input type="text" placeholder="VLO Input Component"   / class="vlo-input vlo-input vlo-input">
+</div>
+    <div class="card">
+    <h3>Alert Component</h3>
+    <p class="card-desc">Testing alert props and variants.</p>
+        <div class="vlo-alert" description="Alert component rendered successfully." variant="success">
+    <strong>Success</strong>
+</div>
+        <div class="vlo-alert" description="Props are being passed correctly." variant="info">
+    <strong>Information</strong>
+</div>
+</div>
+    <div class="card">
+    <h3>Children Rendering</h3>
+    <p class="card-desc">Testing children inside Card.</p>
+        <div class="children-test">
+            <span class="vlo-badge success">Nested Badge</span>
+            <button type="" class="vlo-btn primary" >Nested Button</button>
+            <p>✓ Child components rendered inside Card.</p>
+        </div>
+</div>
+    <div class="card">
+    <h3>Toast Component</h3>
+    <p class="card-desc">Testing toast properties and rendering.</p>
+        <div class="vlo-toast success">
+    <span class="icon">✓</span>
+    <div>
+        <strong>Success Toast</strong>
+        <p>Toast component rendered successfully.</p>
+    </div>
+</div>
+        <div class="vlo-toast info">
+    <span class="icon">!</span>
+    <div>
+        <strong>Info Toast</strong>
+        <p>VLO component engine is working.</p>
+    </div>
+</div>
+</div>
+    <div class="card">
+    <h3>API Engine</h3>
+    <p class="card-desc">Testing VLO REST API routing.</p>
+        <div class="api-test">
+            <button type="" class="vlo-btn primary" onclick="testApi(&#39;/api/products&#39;)">GET Products</button>
+            <button type="" class="vlo-btn secondary" onclick="testApi(&#39;/api/users&#39;)">GET Users</button>
+        </div>
+        <pre id="api-result">API result will appear here...</pre>
+</div>
+    <div class="card">
+    <h3>Navigation</h3>
+    <p class="card-desc">Testing VLO Link component.</p>
+        <a href="/components" class="vlo-link ghost" >Open Components</a>
+        <a href="/docs" class="vlo-link secondary" >Open Docs</a>
+</div>
+    <div class="card">
+    <h3>Runtime Status</h3>
+    <p class="card-desc">Basic browser-side framework verification.</p>
+        <div class="vlo-alert" description="The framework test page rendered successfully." variant="success">
+    <strong>✓ VLO 0.5.0 Loaded</strong>
+</div>
+        <div class="vlo-alert" description="Browser JavaScript is running correctly." variant="success">
+    <strong>✓ JavaScript Loaded</strong>
+</div>
+</div>
+    <div class="card">
+    <h3>Attribute Test</h3>
+    <p class="card-desc">Testing component HTML attributes.</p>
+        <button type="" class="vlo-btn" id="test-button" onclick="alert(&#39;VLO 0.5.0 works&#39;)">Attribute Test</button>
+        <Input type="email" placeholder="Email" class="vlo-input"  />
+        <a href="https://example.com" class="vlo-link" target="_blank">External Link</a>
+</div>
+</div>
+<script>
+async function testApi(url) {
+    const result = document.getElementById('api-result');
+    result.textContent = 'Loading...';
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        result.textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        result.textContent = 'API Error: ' + error.message;
+    }
+}
+</script>
+</body>
+</html>

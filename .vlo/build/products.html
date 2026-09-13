@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management home</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+
+<style>
+/* VLO:page */
+
+    .products-page { max-width: 1150px; margin: 0 auto; padding: 45px 24px 70px; color: #fff; }
+    .products-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; margin-bottom: 30px; }
+    .products-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #00f5ff; margin-bottom: 7px; }
+    .products-header h1 { margin: 0; font-size: 34px; line-height: 1.15; }
+    .products-header p { margin: 9px 0 0; color: #888; font-size: 15px; }
+    .product-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 20px; }
+    .form-field { display: flex; flex-direction: column; gap: 7px; }
+    .form-field label { font-size: 12px; font-weight: 600; color: #aaa; }
+    .form-field input { padding: 10px 12px; background: #171717; border: 1px solid #333; border-radius: 6px; color: #fff; font-size: 14px; outline: none; }
+    .form-field input:focus { border-color: #00f5ff; }
+    .form-actions { grid-column: 1 / -1; display: flex; justify-content: flex-end; padding-top: 4px; }
+    .products-list-card { margin-top: 24px; }
+    .products-toolbar { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 14px; color: #777; font-size: 13px; }
+    .products-table-wrap { overflow-x: auto; }
+    .products-table { width: 100%; border-collapse: collapse; min-width: 900px; }
+    .products-table th { padding: 13px 14px; text-align: left; background: #171717; color: #777; font-size: 11px; text-transform: uppercase; letter-spacing: .7px; border-bottom: 1px solid #292929; }
+    .products-table td { padding: 8px 5px; border-bottom: 1px solid #222; color: #ccc; font-size: 13px; vertical-align: middle; }
+    .products-table tbody tr:hover { background: #161616; }
+    .products-table th:nth-child(4), .products-table td:nth-child(4) { text-align: right; }
+    .products-table th:nth-child(5), .products-table td:nth-child(5), .products-table th:nth-child(7), .products-table td:nth-child(7) { text-align: center; }
+    .product-title { font-weight: 600; color: #fff; }
+    .product-premium { font-weight: 800; }
+    .product-description { max-width: 240px; color: #777; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .product-price { font-weight: 600; color: #00ff88; }
+    .product-expensive { font-weight: 800; }
+    .stock-good { color: #00ff88; font-weight: 600; }
+    .stock-low { color: #ff6666; font-weight: 700; }
+    .stock-empty { color: #ff4444; font-weight: 800; }
+    .date-recent { color: #ff6666; font-weight: 600; }
+    .product-actions { display: flex; justify-content: center; gap: 6px; }
+    .empty-products { text-align: center; padding: 55px 20px; color: #666; }
+    .empty-icon { font-size: 35px; margin-bottom: 10px; }
+    .empty-products h3 { margin: 0 0 7px; color: #aaa; }
+    .empty-products p { margin: 0; font-size: 13px; }
+    .vlo-btn { padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all .15s; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+    .vlo-btn-primary { background: #00f5ff; color: #000; }
+    .vlo-btn-primary:hover { background: #00d4dd; }
+    .vlo-btn-secondary { background: transparent; border: 1px solid #444; color: #ccc; }
+    .vlo-btn-secondary:hover { border-color: #00f5ff; color: #00f5ff; }
+    .vlo-btn-danger { background: transparent; border: 1px solid #444; color: #ff6666; }
+    .vlo-btn-danger:hover { background: #351717; border-color: #ff6666; }
+    .modal-form { display: flex; flex-direction: column; gap: 16px; }
+    .modal-product-name { color: #888; font-size: 13px; margin-bottom: 2px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+    .delete-confirmation { color: #ccc; }
+    .delete-confirmation p { margin: 0 0 12px; line-height: 1.6; }
+    .delete-warning { color: #ff8888; font-size: 13px; }
+    @media (max-width: 700px) {
+      .products-page { padding: 30px 15px 50px; }
+      .products-header { align-items: flex-start; flex-direction: column; }
+      .products-header h1 { font-size: 28px; }
+      .product-form { grid-template-columns: 1fr; }
+      .form-actions { grid-column: auto; justify-content: stretch; }
+      .form-actions .vlo-btn { width: 100%; text-align: center; }
+    }
+
+  
+/* VLO:Toast */
+.vlo-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--card, #111);
+    border: 1px solid var(--border, #333);
+    border-left: 4px solid #00f5ff;
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: start;
+    min-width: 300px;
+    z-index: 999;
+    animation: toast 4s ease forwards;
+}
+.vlo-toast.short { animation-duration: 3s; }
+.vlo-toast.long { animation-duration: 6s; }
+.vlo-toast.success { border-left-color: #00ff88; }
+.vlo-toast.error { border-left-color: #ff4444; }
+.vlo-toast .icon { font-size: 1.5rem; }
+
+@keyframes toast {
+    0% { transform: translateX(400px); opacity: 0; }
+    8% { transform: translateX(0); opacity: 1; }
+    85% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(400px); opacity: 0; visibility: hidden; }
+}
+/* VLO:Badge */
+.vlo-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.vlo-badge.primary { background: #00f5ff; color: #000; }
+.vlo-badge.success { background: #00ff88; color: #000; }
+.vlo-badge.warning { background: #ffaa00; color: #000; }
+/* VLO:Card */
+.card {
+    background: #0d0d0d;
+    border: 1px solid var(--border, #222);
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.card-desc {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+/* VLO:FileInput */
+.vlo-file-input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #374151;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vlo-file-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.vlo-file-input:disabled {
+    background: #f3f4f6;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.vlo-file-input::file-selector-button {
+    padding: 8px 14px;
+    margin-right: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #ffffff;
+    background: #2563eb;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.vlo-file-input.primary::file-selector-button {
+    background: #2563eb;
+}
+
+.vlo-file-input.primary:hover:not(:disabled)::file-selector-button {
+    background: #1d4ed8;
+}
+
+.vlo-file-input.secondary::file-selector-button {
+    color: #374151;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+}
+
+.vlo-file-input.secondary:hover:not(:disabled)::file-selector-button {
+    background: #e5e7eb;
+}
+
+.vlo-file-input.danger::file-selector-button {
+    background: #dc2626;
+}
+
+.vlo-file-input.danger:hover:not(:disabled)::file-selector-button {
+    background: #b91c1c;
+}
+
+.vlo-file-input:disabled::file-selector-button {
+    cursor: not-allowed;
+}
+/* VLO:Modal */
+.vlo-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; }
+    .vlo-modal-overlay.active { display: flex; }
+    .vlo-modal-box { background: #1e293b; padding: 2rem; border-radius: 12px; border: 1px solid #334155; width: 100%; max-width: 500px; }
+</style>
+</head>
+<body>
+  <div class="products-page">
+    <!-- Toast Notifications -->
+    {if status == "success"}
+      {if action == "created"}
+        <div class="vlo-toast success">
+    <span class="icon">✅</span>
+    <div>
+        <strong>Product Created</strong>
+        <p>{{message}}</p>
+    </div>
+</div>
+      {/if}
+      {if action == "updated"}
+        <div class="vlo-toast success">
+    <span class="icon">✏️</span>
+    <div>
+        <strong>Product Updated</strong>
+        <p>{{message}}</p>
+    </div>
+</div>
+      {/if}
+      {if action == "deleted"}
+        <div class="vlo-toast success">
+    <span class="icon">🗑️</span>
+    <div>
+        <strong>Product Deleted</strong>
+        <p>{{message}}</p>
+    </div>
+</div>
+      {/if}
+    {/if}
+  {if status == "error"}
+    <div class="vlo-toast error">
+    <span class="icon">⚠️</span>
+    <div>
+        <strong>Operation Failed</strong>
+        <p>{{message}}</p>
+    </div>
+</div>
+  {/if}
+    <div class="products-header">
+      <div>
+        <div class="products-eyebrow">VLO / API</div>
+        <h1>Product Management</h1>
+        <p>Manage your product catalog using the VLO REST CRUD API.</p>
+      </div>
+      <span class="vlo-badge success">REST API</span>
+    </div>
+    <div class="card">
+    <h3>Add Product</h3>
+    <p class="card-desc">Create a new product and add it to your catalog.</p>
+    <form class="product-form"
+        enctype="multipart/form-data" onsubmit="event.preventDefault();fetch(&quot;/api/products&quot;,{method:&#39;POST&#39;,body:new FormData(event.currentTarget)}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.href=window.location.pathname+&#39;?status=success&amp;action=created&amp;message=&#39;+encodeURIComponent(d.message||&#39;Operation successful.&#39;)}).catch(e=&gt;{console.error(&#39;[VLO POST]&#39;,e);window.location.href=window.location.pathname+&#39;?status=error&amp;action=error&amp;message=&#39;+encodeURIComponent(e.message)});return false">
+        <div class="form-field">
+          <label for="product-title">Product Title</label>
+          <input
+            id="product-title"
+            type="text"
+            name="title"
+            placeholder="e.g. Mechanical Keyboard"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="product-description">Description</label>
+          <input
+            id="product-description"
+            type="text"
+            name="description"
+            placeholder="Product description"
+          />
+        </div>
+        <div class="form-field">
+          <label for="product-price">Price</label>
+          <input
+            id="product-price"
+            type="number"
+            name="price"
+            placeholder="0.00"
+            step="0.01"
+            min="0"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label for="product-stock">Stock</label>
+          <input
+            id="product-stock"
+            type="number"
+            name="stock"
+            placeholder="0"
+            min="0"
+            required
+          />
+        </div>
+        <div class="form-field">
+          <label>Product Image</label>
+          <input id="product-image"
+    class="vlo-file-input primary"
+    type="file"
+    name="image"
+    accept="image/*" button="Choose Image" required>
+        </div>
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="vlo-btn vlo-btn-primary"
+          >
+            + Add Product
+          </button>
+        </div>
+      </form>
+</div>
+    <div class="products-list-card">
+      <div class="card">
+    <h3>Products</h3>
+    <p class="card-desc">All products currently stored in the database.</p>
+        <div class="products-toolbar">
+          <span>Live Database</span>
+          <span class="vlo-badge success">Active</span>
+        </div>
+        <div >
+          <div class="products-table-wrap">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody data-source="/api/get_products">
+                {for product in products}
+                  <tr>
+                    <td>#{{product.id}}</td>
+                    <td>
+                      {if product.image}
+                        <img
+                          src="{{product.image}}"
+                          alt="{{product.title}}"
+                          class="product-image"
+                          loading="lazy"
+                        />
+                      {else}
+                        <div class="product-image-placeholder">
+                          📦
+                        </div>
+                      {/if}
+                    </td>
+                    <td>
+                      {if product.price > 500}
+                        <div class="product-title product-premium">
+                          {{product.title}}
+                        </div>
+                      {else}
+                        <div class="product-title">
+                          {{product.title}}
+                        </div>
+                      {/if}
+                    </td>
+                    <td>
+                      <div class="product-description">
+                        {{product.description}}
+                      </div>
+                    </td>
+                    <td>
+                      {if product.price > 500}
+                        <span class="product-price product-expensive">
+                          ${{product.price}}
+                        </span>
+                      {else}
+                        <span class="product-price">
+                          ${{product.price}}
+                        </span>
+                      {/if}
+                    </td>
+                    <td>
+                      {if product.stock == 0}
+                        <span class="stock-empty">
+                          Out of Stock
+                        </span>
+                      {else}
+                        {if product.stock < 5}
+                          <span class="stock-low">
+                            {{product.stock}} left
+                          </span>
+                        {else}
+                          <span class="stock-good">
+                            {{product.stock}}
+                          </span>
+                        {/if}
+                      {/if}
+                    </td>
+                    <td>
+                      {if product.created_at < 5}
+                        <span class="date-recent">
+                          {{product.created_at}}
+                        </span>
+                      {else}
+                        <span>
+                          {{product.created_at}}
+                        </span>
+                      {/if}
+                    </td>
+                    <td>
+                      <div class="product-actions">
+                        <button
+                          type="button"
+                          class="vlo-btn vlo-btn-secondary"
+                          onclick="document.getElementById('edit-product-{{product.id}}').classList.add('active')"
+                          title="Edit Product"
+                        >
+                          ✎
+                        </button>
+                        <button
+                          type="button"
+                          class="vlo-btn vlo-btn-danger"
+                          onclick="document.getElementById('delete-product-{{product.id}}').classList.add('active')"
+                          title="Delete Product"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <!-- Edit Product -->
+                      <div class="vlo-modal-overlay" id="edit-product-{{product.id}}">
+    <div class="vlo-modal-box">
+            <h2>Edit Product</h2>
+                        <form class="modal-form"
+                          enctype="multipart/form-data" onsubmit="event.preventDefault();fetch(&quot;/api/products/{{product.id}}&quot;,{method:&#39;PUT&#39;,headers:{&#39;Content-Type&#39;:&#39;application/x-www-form-urlencoded&#39;},body:new URLSearchParams(new FormData(event.currentTarget))}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.href=window.location.pathname+&#39;?status=success&amp;action=updated&amp;message=&#39;+encodeURIComponent(d.message||&#39;Update operation successful.&#39;)}).catch(e=&gt;{console.error(&#39;[VLO PUT]&#39;,e);window.location.href=window.location.pathname+&#39;?status=error&amp;action=error&amp;message=&#39;+encodeURIComponent(e.message)});return false">
+                          <div class="modal-product-name">
+                            Editing:
+                            <strong>{{product.title}}</strong>
+                          </div>
+                          <div class="form-field">
+                            <label>Product Title</label>
+                            <input
+                              type="text"
+                              name="title"
+                              value="{{product.title}}"
+                              required
+                            />
+                          </div>
+                          <div class="form-field">
+                            <label>Description</label>
+                            <input
+                              type="text"
+                              name="description"
+                              value="{{product.description}}"
+                            />
+                          </div>
+                          <div class="form-field">
+                            <label>Price</label>
+                            <input
+                              type="number"
+                              name="price"
+                              value="{{product.price}}"
+                              step="0.01"
+                              min="0"
+                              required
+                            />
+                          </div>
+                          <div class="form-field">
+                            <label>Stock</label>
+                            <input
+                              type="number"
+                              name="stock"
+                              value="{{product.stock}}"
+                              min="0"
+                              required
+                            />
+                          </div>
+                          <div class="form-field">
+                            <label>Product Image</label>
+                            <input id="product-image-{{product.id}}"
+    class="vlo-file-input secondary"
+    type="file"
+    name="image"
+    accept="image/*" button="Replace Image">
+                          </div>
+                          {if product.image}
+                            <div class="current-product-image">
+                              <span>Current Image</span>
+                              <img
+                                src="{{product.image}}"
+                                alt="{{product.title}}"
+                                class="product-edit-image"
+                                loading="lazy"
+                              />
+                            </div>
+                          {/if}
+                          <div class="modal-actions">
+                            <button
+                              type="button"
+                              class="vlo-btn vlo-btn-secondary"
+                              onclick="document.getElementById('edit-product-{{product.id}}').classList.remove('active')"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="submit"
+                              class="vlo-btn vlo-btn-primary"
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </form>
+    </div>
+</div>
+                      <!-- Delete Product -->
+                      <div class="vlo-modal-overlay" id="delete-product-{{product.id}}">
+    <div class="vlo-modal-box">
+            <h2>Delete Product</h2>
+                        <div class="delete-confirmation">
+                          <p>
+                            Are you sure you want to delete
+                            <strong>{{product.title}}</strong>?
+                          </p>
+                          <p class="delete-warning">
+                            This action cannot be undone.
+                          </p>
+                          <div class="modal-actions">
+                            <button
+                              type="button"
+                              class="vlo-btn vlo-btn-secondary"
+                              onclick="document.getElementById('delete-product-{{product.id}}').classList.remove('active')"
+                            >
+                              Cancel
+                            </button>
+                            <button type="button"
+                              class="vlo-btn vlo-btn-danger" onclick="if(true){fetch(&quot;/api/products/{{product.id}}&quot;,{method:&#39;DELETE&#39;}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.href=window.location.pathname+&#39;?status=success&amp;action=deleted&amp;message=&#39;+encodeURIComponent(d.message||&#39;Delete operation successful.&#39;)}).catch(e=&gt;{console.error(&#39;[VLO DELETE]&#39;,e);window.location.href=window.location.pathname+&#39;?status=error&amp;action=error&amp;message=&#39;+encodeURIComponent(e.message)})}">
+                              Delete Product
+                            </button>
+                          </div>
+                        </div>
+    </div>
+</div>
+                    </td>
+                  </tr>
+                {else}
+                  <tr>
+                    <td colspan="8">
+                      <div class="empty-products">
+                        <div class="empty-icon">📦</div>
+                        <h3>No Products Found</h3>
+                        <p>
+                          Add your first product using the form above.
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                {/for}
+              </tbody>
+            </table>
+          </div>
+        </div>
+</div>
+    </div>
+  </div>
+</body>
+</html>
