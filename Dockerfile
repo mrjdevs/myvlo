@@ -6,6 +6,7 @@ COPY pages /app/pages
 COPY components /app/components
 COPY public /app/public
 COPY layouts /app/layouts
+COPY layouts /app/mopdules
 COPY schema.sql /app/schema.sql
 COPY vlo_app.db /app/vlo_app.db
 
