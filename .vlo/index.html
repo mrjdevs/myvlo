@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en" navbar="
+        &lt;Navbar brand=&quot;VLO&quot;&gt;
+            &lt;a href=&quot;/&quot; class=&quot;active&quot;&gt;Home&lt;/a&gt;
+            &lt;a href=&quot;/components&quot;&gt;Components&lt;/a&gt;
+            &lt;a href=&quot;/pricing&quot;&gt;Pricing&lt;/a&gt;
+            &lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;
+            &lt;a href=&quot;/docs&quot;&gt;Docs&lt;/a&gt;
+            &lt;a href=&quot;/dashboard&quot;&gt;Dashboard&lt;/a&gt;
+        &lt;/Navbar&gt;" toasts="&lt;Toast title=&quot;VLO Dev Server&quot; description=&quot;Ready on http://localhost:3000&quot; icon=&quot;⚡&quot; variant=&quot;success&quot; /&gt;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+<meta name="csrf-token" content="__VLO_CSRF_PLACEHOLDER__">
+
+<style>
+.intro{padding:85px 24px 65px;text-align:center;background:radial-gradient(circle at 50% -10%,rgba(0,245,255,.08),transparent 34%);} .intro-inner{max-width:760px;margin:0 auto;} .section-badge{display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid rgba(0,245,255,.25);border-radius:999px;background:rgba(0,245,255,.05);color:#00f5ff;font-size:.72rem;font-weight:700;letter-spacing:.08em;} .pulse{width:7px;height:7px;border-radius:50%;background:#00f5ff;box-shadow:0 0 12px #00f5ff;} .intro h2,.section-heading h2,.workflow-copy h2,.cta-section h2{margin:24px 0 18px;font-size:clamp(2.2rem,5vw,3.8rem);line-height:.95;letter-spacing:-.05em;color:#fff;} .intro h2 span,.section-heading h2 span,.workflow-copy h2 span,.cta-section h2 span{color:#00f5ff;text-shadow:0 0 30px rgba(0,245,255,.25);} .intro p,.section-heading p,.workflow-copy>p,.cta-section>p{max-width:650px;margin:0 auto;color:#8d8d8d;line-height:1.75;font-size:1rem;} .section-heading{max-width:700px;margin:0 auto 50px;text-align:center;} .stats{max-width:1120px;margin:0 auto;padding:0 24px 80px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #292929;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.018);} .stat{padding:25px 15px;text-align:center;border-right:1px solid #292929;} .stat:last-child{border-right:none;} .stat strong{display:block;color:#00f5ff;font-family:monospace;font-size:1.5rem;margin-bottom:5px;} .stat span{color:#777;font-size:.75rem;} .features{max-width:1120px;margin:0 auto;padding:90px 24px;} .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;} .feature{padding:21px;border:1px solid #292929;border-radius:11px;background:rgba(255,255,255,.018);transition:border-color .2s ease,background .2s ease;} .feature:hover{border-color:rgba(0,245,255,.3);background:rgba(0,245,255,.035);} .icon{margin-bottom:13px;color:#00f5ff;font-size:1.2rem;} .feature h3{margin:0 0 7px;color:#eee;font-size:.95rem;} .feature p{margin:0;color:#707070;font-size:.8rem;line-height:1.6;} .workflow{padding:100px 24px;border-top:1px solid #292929;border-bottom:1px solid #292929;background:#0a0a0c;} .workflow-content{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center;} .workflow-points{margin-top:35px;display:flex;flex-direction:column;gap:8px;} .workflow-points div{display:flex;align-items:center;gap:14px;padding:12px 14px;border:1px solid #292929;border-radius:8px;background:rgba(255,255,255,.015);} .workflow-points span{color:#00f5ff;font-family:monospace;font-size:.68rem;} .workflow-points strong{color:#ddd;font-size:.85rem;} .code-window{overflow:hidden;border:1px solid #292929;border-radius:11px;background:#090909;} .window-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #292929;background:rgba(255,255,255,.02);} .window-bar label{color:#707070;font-family:monospace;font-size:.7rem;} .window-bar::after{content:"VLO";color:#00f5ff;font-family:monospace;font-size:.7rem;} .code-window pre{margin:0;padding:20px;overflow-x:auto;} .code-window code{color:#b9f8ff;font-family:"SFMono-Regular",Consolas,monospace;font-size:.78rem;line-height:1.7;} .architecture{max-width:1120px;margin:0 auto;padding:100px 24px;} .architecture-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;} .architecture-card{padding:21px;border:1px solid #292929;border-radius:11px;background:rgba(255,255,255,.018);} .architecture-icon{display:block;margin-bottom:13px;font-size:1.2rem;} .architecture-card h3{margin:0 0 7px;color:#eee;font-size:.95rem;} .architecture-card p{margin:0 0 15px;color:#707070;font-size:.8rem;line-height:1.6;} .architecture-card code{display:block;color:#00f5ff;font-family:monospace;font-size:.72rem;} .cta-section{padding:110px 24px 130px;text-align:center;border:1px solid rgba(0,245,255,.16);border-radius:15px;background:radial-gradient(circle at center,rgba(0,245,255,.06),transparent 65%);max-width:1120px;margin:0 auto 100px;} .cta-buttons{display:flex;justify-content:center;gap:12px;margin-top:28px;} .cta-note{margin-top:22px;color:#666;font-size:.75rem;} @media (max-width:900px){.feature-grid{grid-template-columns:repeat(2,1fr);} .architecture-grid{grid-template-columns:repeat(2,1fr);} .workflow-content{grid-template-columns:1fr;gap:45px;}} @media (max-width:650px){.intro h2,.cta-section h2{font-size:2rem;} .stats{grid-template-columns:repeat(2,1fr);} .stat{border-bottom:1px solid #292929;} .feature-grid,.architecture-grid{grid-template-columns:1fr;} .features,.architecture,.workflow{padding-top:70px;padding-bottom:70px;} .cta-buttons{flex-direction:column;align-items:center;}} .vlo-btn{background:#00f5ff;color:#000;padding:12px 24px;border-radius:8px;font-weight:bold;border:none;display:inline-block;text-align:center;cursor:pointer;transition:all 0.2s}.vlo-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,245,255,.3)}.vlo-btn.secondary{background:transparent;color:#00f5ff;border:2px solid #00f5ff}.vlo-btn.ghost{background:transparent;color:#aaa} .hero-layout{position:relative;padding:100px 20px 60px;text-align:center;} .hero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,rgba(0,245,255,0.12) 0%,transparent 60%);z-index:-1;} .badge{display:inline-block;padding:6px 16px;font-size:0.85rem;font-weight:600;color:#00f5ff;background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.3);border-radius:9999px;letter-spacing:0.05em;text-transform:uppercase;box-shadow:0 0 12px rgba(0,245,255,0.15);} .hero-content h1{font-size:3.5rem;margin:20px 0 15px;background:linear-gradient(90deg,#00f5ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;} .hero-content p{color:#aaa;font-size:1.15rem;max-width:600px;margin:0 auto;line-height:1.6;} .hero-cta{display:flex;gap:15px;justify-content:center;flex-wrap:wrap;margin-top:30px;} .footer{text-align:center;padding:40px 20px;border-top:1px solid var(--border);color:#666;} .navbar{width:100%;box-sizing:border-box;color:#a0a0a0;background:var(--background);border-bottom:1px solid var(--border);z-index:100;} .navbar-inner{width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1rem 2rem;} .brand{color:var(--primary);text-decoration:none;font-weight:700;font-size:1.5rem;line-height:1;white-space:nowrap;transition:opacity .2s ease;} .brand:hover{opacity:.8;} .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;} .nav-links a{display:inline-block;color:#a0a0a0;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 16px;text-decoration:none;font-weight:600;transition:color .2s ease,background .2s ease,border-color .2s ease;} .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);} .nav-links a.active{color:var(--primary);background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.4);} .nav-links a.active:hover{color:#fff;background:rgba(0,245,255,.14);} .navbar.default{background:var(--background);} .navbar.light{background:#fff;color:#374151;border-color:#e5e7eb;} .navbar.light .brand{color:#111827;} .navbar.light .nav-links a{color:#4b5563;} .navbar.light .nav-links a:hover{color:#111827;background:#f3f4f6;} .navbar.light .nav-links a.active{color:var(--primary);background:rgba(0,0,0,.05);border-color:#d1d5db;} .navbar.dark{background:#111827;border-color:#374151;} .navbar.dark .brand{color:#fff;} .navbar.dark .nav-links a{color:#d1d5db;} .navbar.dark .nav-links a:hover{color:#fff;background:#1f2937;} .navbar.dark .nav-links a.active{color:#fff;background:#374151;border-color:#6b7280;} .navbar.primary{background:var(--primary);border-color:transparent;} .navbar.primary .brand{color:#fff;} .navbar.primary .nav-links a{color:rgba(255,255,255,.85);} .navbar.primary .nav-links a:hover{color:#fff;background:rgba(255,255,255,.12);} .navbar.primary .nav-links a.active{color:var(--primary);background:#fff;border-color:#fff;} .navbar.outline{background:transparent;} .navbar.outline .nav-links a{color:var(--primary);} .navbar.outline .nav-links a:hover{color:var(--primary);background:rgba(0,0,0,.03);border-color:var(--primary);} .navbar.outline .nav-links a.active{color:var(--primary);background:transparent;border-color:var(--primary);} .navbar.small .navbar-inner{padding:.65rem 1.25rem;} .navbar.small .brand{font-size:1.25rem;} .navbar.small .nav-links a{padding:6px 10px;font-size:.85rem;} .navbar.large .navbar-inner{padding:1.25rem 2.5rem;} .navbar.large .brand{font-size:1.7rem;} .navbar.large .nav-links a{padding:10px 18px;} .navbar.shadow-small{box-shadow:0 2px 8px rgba(0,0,0,.08);} .navbar.shadow-medium{box-shadow:0 4px 16px rgba(0,0,0,.12);} .navbar.shadow-large{box-shadow:0 8px 30px rgba(0,0,0,.18);} .navbar.sticky{position:sticky;top:0;} .navbar-toggle-input{position:absolute;opacity:0;pointer-events:none;} .navbar-toggle{display:none;width:40px;height:40px;box-sizing:border-box;padding:8px;border:1px solid var(--border);border-radius:7px;cursor:pointer;} .navbar-toggle span{display:block;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .2s ease;} @media (max-width:768px){.navbar.collapse .navbar-inner{flex-wrap:wrap;} .navbar.collapse .navbar-toggle{display:block;} .navbar.collapse .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-top:.5rem;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .nav-links{display:flex;} .navbar.collapse .nav-links a{width:100%;box-sizing:border-box;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(2){opacity:0;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}} @media (max-width:768px){.navbar.wrap .navbar-inner{flex-wrap:wrap;} .navbar.wrap .nav-links{width:100%;flex-wrap:wrap;justify-content:flex-start;}} @media (max-width:768px){.navbar.scroll .nav-links{max-width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;} .navbar.scroll .nav-links a{flex-shrink:0;white-space:nowrap;}}
+</style>
+</head>
+<body>
+<nav class="navbar sticky collapse sticky collapse">
+    <input class="navbar-toggle-input" type="checkbox" id="navbar-toggle">
+    <div class="navbar-inner">
+        <a class="brand" href="">VLO</a>
+        <label class="navbar-toggle" for="navbar-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="nav-links">
+    <a href="/" class="active">Home</a>
+    <a href="/components">Components</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/docs">Docs</a>
+    {if logged_in}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/api/auth/logout">Logout ({{user_name}})</a>
+    {else}
+        <a href="/login">Login</a>
+    {/if}
+        </div>
+    </div>
+</nav>
+<section class="hero-layout">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="badge">v0.8.3 • Built in Rust</div>
+        <h1>Build Web Apps Without the Framework Overhead</h1>
+        <p>VLO is a lightweight Rust-powered web framework with real components, hierarchical layouts, server-side rendering, APIs, live reload, and a simple developer experience.</p>
+    </div>
+    <div class="hero-cta"><button type="" class="vlo-btn primary" href="/docs">Start Building</button><button type="" class="vlo-btn ghost" href="/components">Explore Components</button></div>
+</section>
+    <section class="intro">
+        <div class="intro-inner">
+            <span class="section-badge">
+                <span class="pulse"></span>
+                A MODERN RUST WEB FRAMEWORK
+            </span>
+            <h2>Simple enough to learn.<br><span>Powerful enough to ship.</span></h2>
+            <p>
+                VLO brings the pieces of modern web development together without
+                forcing you through layers of configuration and complexity.
+            </p>
+        </div>
+    </section>
+    <section class="stats">
+        <div class="stat">
+            <strong>Rust</strong>
+            <span>Powered runtime</span>
+        </div>
+        <div class="stat">
+            <strong>SSR</strong>
+            <span>Server-rendered pages</span>
+        </div>
+        <div class="stat">
+            <strong>API</strong>
+            <span>Built-in REST routing</span>
+        </div>
+        <div class="stat">
+            <strong>HMR</strong>
+            <span>Fast development reload</span>
+        </div>
+    </section>
+    <section class="features">
+        <div class="section-heading">
+            <span class="section-badge">
+                <span class="pulse"></span>
+                WHY VLO
+            </span>
+            <h2>Everything you need to <span>build.</span></h2>
+            <p>
+                VLO focuses on the parts that make web development productive
+                while keeping the underlying architecture straightforward.
+            </p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="icon">⚡</div>
+                <h3>Smart Live Reload</h3>
+                <p>
+                    Change your VLO pages or components and see the result
+                    immediately during development.
+                </p>
+            </div>
+            <div class="feature">
+                <div class="icon">🧩</div>
+                <h3>Real Components</h3>
+                <p>
+                    Build reusable components with props, children, nesting,
+                    layouts, and composable page structures.
+                </p>
+            </div>
+            <div class="feature">
+                <div class="icon">🎨</div>
+                <h3>Auto-Resolved Layouts</h3>
+                <p>
+                    Create nested layouts that automatically resolve based on
+                    your page path, keeping your markup clean and DRY.
+                </p>
+            </div>
+            <div class="feature">
+                <div class="icon">🔌</div>
+                <h3>Built-in APIs</h3>
+                <p>
+                    Define your API operations alongside your application and
+                    expose GET, POST, PUT, and DELETE endpoints.
+                </p>
+            </div>
+            <div class="feature">
+                <div class="icon">🚀</div>
+                <h3>Optimized Performance</h3>
+                <p>
+                    Built-in HTTP caching, memory-cached APIs, and non-blocking
+                    I/O ensure your app is production-ready from day one.
+                </p>
+            </div>
+            <div class="feature">
+                <div class="icon">📦</div>
+                <h3>Single Binary</h3>
+                <p>
+                    Develop and run VLO through one CLI instead of managing a
+                    large collection of separate development tools.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="workflow">
+        <div class="workflow-content">
+            <div class="workflow-copy">
+                <span class="section-badge">
+                    <span class="pulse"></span>
+                    THE VLO WORKFLOW
+                </span>
+                <h2>Write less configuration. <span>Build more.</span></h2>
+                <p>
+                    Pages, layouts, components, and APIs live inside one
+                    straightforward project structure. Start the development
+                    server and VLO handles the rest.
+                </p>
+                <div class="workflow-points">
+                    <div>
+                        <span>01</span>
+                        <strong>Create a page</strong>
+                    </div>
+                    <div>
+                        <span>02</span>
+                        <strong>Compose components</strong>
+                    </div>
+                    <div>
+                        <span>03</span>
+                        <strong>Connect your API</strong>
+                    </div>
+                    <div>
+                        <span>04</span>
+                        <strong>Ship your application</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="code-window">
+                <div class="window-bar">
+                    <label>pages/home.vlo</label>
+                </div>
+                <pre><code>&lt;BaseLayout title="My App"&gt;
+    &lt;HeroLayout
+        badge="VLO"
+        title="Hello World"
+        subtitle="Built with Rust."
+    /&gt;
+    &lt;Card title="Welcome"&gt;
+        &lt;p&gt;Build something amazing.&lt;/p&gt;
+    &lt;/Card&gt;
+&lt;/BaseLayout&gt;</code></pre>
+            </div>
+        </div>
+    </section>
+    <section class="architecture">
+        <div class="section-heading">
+            <span class="section-badge">
+                <span class="pulse"></span>
+                ONE PROJECT
+            </span>
+            <h2>Everything has a <span>place.</span></h2>
+            <p>
+                Keep your pages, components, layouts, APIs, and static assets
+                organized in a structure that's easy to understand.
+            </p>
+        </div>
+        <div class="architecture-grid">
+            <div class="architecture-card">
+                <span class="architecture-icon">📄</span>
+                <h3>Pages</h3>
+                <p>Build application pages using simple VLO markup.</p>
+                <code>pages/*.vlo</code>
+            </div>
+            <div class="architecture-card">
+                <span class="architecture-icon">🧩</span>
+                <h3>Components</h3>
+                <p>Reuse UI pieces throughout your application.</p>
+                <code>components/*.vlo</code>
+            </div>
+            <div class="architecture-card">
+                <span class="architecture-icon">🔌</span>
+                <h3>APIs</h3>
+                <p>Define REST operations for your application.</p>
+                <code>pages/api/api.vlo</code>
+            </div>
+            <div class="architecture-card">
+                <span class="architecture-icon">🎨</span>
+                <h3>Layouts</h3>
+                <p>Share common structures across multiple pages.</p>
+                <code>layouts/*.vlo</code>
+            </div>
+        </div>
+    </section>
+    <section class="cta-section">
+        <span class="section-badge">
+            <span class="pulse"></span>
+            READY WHEN YOU ARE
+        </span>
+        <h2>Start building with <span>VLO.</span></h2>
+        <p>
+            Install VLO, create your first page, and experience a simpler
+            Rust-powered web development workflow.
+        </p>
+        <div class="cta-buttons">
+            <button type="" class="vlo-btn primary" href="/docs">Read the Docs</button>
+            <button type="" class="vlo-btn secondary" href="/components">Explore Components</button>
+        </div>
+        <div class="cta-note">
+            Free during beta • Open source • Built with Rust
+        </div>
+    </section>
+<footer class="footer">
+    <p>© 2026 VLO. Built with Rust + Cyan.</p>
+</footer>
+<div id="__VLO_FLASH_PLACEHOLDER__"></div>
+<script>(function(){var p=window.location.pathname;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('#')||h.startsWith('javascript'))return;if(h==='/'&&p==='/'){a.classList.add('active')}else if(h!=='/'&&p.startsWith(h)){a.classList.add('active')}})})()</script>
+</body>
+</html>

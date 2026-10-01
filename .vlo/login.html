@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+<meta name="csrf-token" content="__VLO_CSRF_PLACEHOLDER__">
+
+<style>
+.auth-page{position:relative;min-height:calc(100vh - 140px);display:grid;place-items:center;padding:60px 24px;overflow:hidden;} .auth-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,245,255,.08),transparent 45%);pointer-events:none;} .auth-card{position:relative;width:100%;max-width:420px;padding:40px 34px;border:1px solid rgba(0,245,255,.16);border-radius:15px;background:rgba(255,255,255,.02);backdrop-filter:blur(6px);} .auth-badge{display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border:1px solid rgba(0,245,255,.25);border-radius:999px;background:rgba(0,245,255,.05);color:#00f5ff;font-size:.72rem;font-weight:700;letter-spacing:.08em;} .pulse{width:7px;height:7px;border-radius:50%;background:#00f5ff;box-shadow:0 0 12px #00f5ff;} .auth-card h1{margin:22px 0 10px;font-size:clamp(2rem,6vw,2.6rem);line-height:.95;letter-spacing:-.05em;color:#fff;} .auth-card h1 span{color:#00f5ff;text-shadow:0 0 30px rgba(0,245,255,.25);} .auth-lead{margin:0 0 28px;color:#858585;font-size:.85rem;line-height:1.65;} .auth-alert{display:flex;align-items:center;gap:12px;padding:13px 15px;margin-bottom:20px;border:1px solid rgba(255,92,122,.25);border-radius:10px;background:rgba(255,92,122,.05);} .auth-alert>span{width:24px;height:24px;display:grid;place-items:center;flex-shrink:0;border-radius:7px;background:rgba(255,92,122,.1);color:#ff6680;font-weight:700;font-size:.8rem;} .auth-alert p{margin:0;color:#ff8fa3;font-size:.78rem;line-height:1.5;} .auth-form{display:flex;flex-direction:column;gap:18px;} .auth-field{display:flex;flex-direction:column;gap:8px;} .auth-field label{color:#777;font-family:monospace;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;} .auth-field input{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid #292929;border-radius:9px;background:#090909;color:#eee;font-size:.85rem;transition:border-color .2s ease,box-shadow .2s ease;} .auth-field input::placeholder{color:#444;} .auth-field input:focus{outline:none;border-color:rgba(0,245,255,.45);box-shadow:0 0 0 3px rgba(0,245,255,.08);} .auth-remember{margin-top:-6px;} .auth-checkbox-label{display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;font-family:inherit;font-size:inherit;font-weight:400;text-transform:none;letter-spacing:normal;color:inherit;} .auth-checkbox-label input[type="checkbox"]{display:none;} .auth-checkbox-custom{width:18px;height:18px;border:1px solid #444;border-radius:4px;background:#090909;display:grid;place-items:center;transition:all .2s ease;flex-shrink:0;} .auth-checkbox-label input[type="checkbox"]:checked+.auth-checkbox-custom{background:#00f5ff;border-color:#00f5ff;} .auth-checkbox-label input[type="checkbox"]:checked+.auth-checkbox-custom::after{content:"✓";color:#000;font-size:.75rem;font-weight:900;line-height:1;} .auth-checkbox-label span:last-child{color:#888;font-size:.78rem;} .auth-submit{margin-top:6px;padding:13px 18px;border:none;border-radius:9px;background:#00f5ff;color:#000;font-size:.85rem;font-weight:900;letter-spacing:.02em;cursor:pointer;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;} .auth-submit:hover{background:#4dfaff;box-shadow:0 0 25px rgba(0,245,255,.35);transform:translateY(-1px);} .auth-submit:active{transform:translateY(0);} .auth-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:26px;padding-top:20px;border-top:1px solid #222;} .auth-footer a{color:#aaa;text-decoration:none;font-size:.72rem;transition:color .2s ease;} .auth-footer a:hover{color:#00f5ff;} .auth-footer span{color:#555;font-size:.68rem;} @media (max-width:480px){.auth-card{padding:32px 22px;} .auth-footer{justify-content:center;text-align:center;}} .navbar{width:100%;box-sizing:border-box;color:#a0a0a0;background:var(--background);border-bottom:1px solid var(--border);z-index:100;} .navbar-inner{width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1rem 2rem;} .brand{color:var(--primary);text-decoration:none;font-weight:700;font-size:1.5rem;line-height:1;white-space:nowrap;transition:opacity .2s ease;} .brand:hover{opacity:.8;} .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;} .nav-links a{display:inline-block;color:#a0a0a0;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 16px;text-decoration:none;font-weight:600;transition:color .2s ease,background .2s ease,border-color .2s ease;} .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);} .nav-links a.active{color:var(--primary);background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.4);} .nav-links a.active:hover{color:#fff;background:rgba(0,245,255,.14);} .navbar.default{background:var(--background);} .navbar.light{background:#fff;color:#374151;border-color:#e5e7eb;} .navbar.light .brand{color:#111827;} .navbar.light .nav-links a{color:#4b5563;} .navbar.light .nav-links a:hover{color:#111827;background:#f3f4f6;} .navbar.light .nav-links a.active{color:var(--primary);background:rgba(0,0,0,.05);border-color:#d1d5db;} .navbar.dark{background:#111827;border-color:#374151;} .navbar.dark .brand{color:#fff;} .navbar.dark .nav-links a{color:#d1d5db;} .navbar.dark .nav-links a:hover{color:#fff;background:#1f2937;} .navbar.dark .nav-links a.active{color:#fff;background:#374151;border-color:#6b7280;} .navbar.primary{background:var(--primary);border-color:transparent;} .navbar.primary .brand{color:#fff;} .navbar.primary .nav-links a{color:rgba(255,255,255,.85);} .navbar.primary .nav-links a:hover{color:#fff;background:rgba(255,255,255,.12);} .navbar.primary .nav-links a.active{color:var(--primary);background:#fff;border-color:#fff;} .navbar.outline{background:transparent;} .navbar.outline .nav-links a{color:var(--primary);} .navbar.outline .nav-links a:hover{color:var(--primary);background:rgba(0,0,0,.03);border-color:var(--primary);} .navbar.outline .nav-links a.active{color:var(--primary);background:transparent;border-color:var(--primary);} .navbar.small .navbar-inner{padding:.65rem 1.25rem;} .navbar.small .brand{font-size:1.25rem;} .navbar.small .nav-links a{padding:6px 10px;font-size:.85rem;} .navbar.large .navbar-inner{padding:1.25rem 2.5rem;} .navbar.large .brand{font-size:1.7rem;} .navbar.large .nav-links a{padding:10px 18px;} .navbar.shadow-small{box-shadow:0 2px 8px rgba(0,0,0,.08);} .navbar.shadow-medium{box-shadow:0 4px 16px rgba(0,0,0,.12);} .navbar.shadow-large{box-shadow:0 8px 30px rgba(0,0,0,.18);} .navbar.sticky{position:sticky;top:0;} .navbar-toggle-input{position:absolute;opacity:0;pointer-events:none;} .navbar-toggle{display:none;width:40px;height:40px;box-sizing:border-box;padding:8px;border:1px solid var(--border);border-radius:7px;cursor:pointer;} .navbar-toggle span{display:block;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .2s ease;} @media (max-width:768px){.navbar.collapse .navbar-inner{flex-wrap:wrap;} .navbar.collapse .navbar-toggle{display:block;} .navbar.collapse .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-top:.5rem;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .nav-links{display:flex;} .navbar.collapse .nav-links a{width:100%;box-sizing:border-box;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(2){opacity:0;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}} @media (max-width:768px){.navbar.wrap .navbar-inner{flex-wrap:wrap;} .navbar.wrap .nav-links{width:100%;flex-wrap:wrap;justify-content:flex-start;}} @media (max-width:768px){.navbar.scroll .nav-links{max-width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;} .navbar.scroll .nav-links a{flex-shrink:0;white-space:nowrap;}}
+</style>
+</head>
+<body>
+<nav class="navbar sticky collapse sticky collapse">
+    <input class="navbar-toggle-input" type="checkbox" id="navbar-toggle">
+    <div class="navbar-inner">
+        <a class="brand" href="">VLO</a>
+        <label class="navbar-toggle" for="navbar-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/components">Components</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/docs">Docs</a>
+    {if logged_in}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/api/auth/logout">Logout ({{user_name}})</a>
+    {else}
+        <a href="/login" class="active">Login</a>
+    {/if}
+        </div>
+    </div>
+</nav>
+    <div class="auth-page">
+        <div class="auth-glow"></div>
+        <div class="auth-card">
+            <div class="auth-badge">
+                <span class="pulse"></span>
+                SECURE ACCESS
+            </div>
+            <h1>Login to <span>VLO</span>.</h1>
+            <p class="auth-lead">
+                Sign in to manage your projects, dashboards and content.
+            </p>
+            {if status == "error"}
+                <div class="auth-alert">
+                    <span>!</span>
+                    <p>{{message}}</p>
+                </div>
+            {/if}
+            <form class="auth-form" onsubmit="event.preventDefault();fetch(&quot;/api/auth/login&quot;,{credentials:&#39;same-origin&#39;,method:&#39;POST&#39;,headers:{&#39;X-CSRF-Token&#39;:document.querySelector(&#39;meta[name=&quot;csrf-token&quot;]&#39;)?.content||&#39;&#39;},body:new FormData(event.currentTarget)}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.reload()}).catch(e=&gt;{console.error(&#39;[VLO POST]&#39;,e);window.location.reload()});return false">
+                <div class="auth-field">
+                    <label for="identifier">{{auth_identifier_field}}</label>
+                    <input type="text" id="identifier" name="{{auth_identifier_field}}" placeholder="Email or username" required />
+                </div>
+                <div class="auth-field">
+                    <label for="password">{{auth_password_field}}</label>
+                    <input type="password" id="password" name="{{auth_password_field}}" placeholder="••••••••" required />
+                </div>
+                <!-- ═══ REMEMBER ME CHECKBOX ═══ -->
+                <div class="auth-field auth-remember">
+                    <label class="auth-checkbox-label">
+                        <input type="checkbox" name="remember_me" value="true" />
+                        <span class="auth-checkbox-custom"></span>
+                        <span>Remember me for 30 days</span>
+                    </label>
+                </div>
+                <button type="submit" class="auth-submit">Sign In →</button>
+            </form>
+            <div class="auth-footer">
+                <a href="/">← Back to Home</a>
+                <span>Free during beta • Built with Rust</span>
+            </div>
+        </div>
+    </div>
+<div id="__VLO_FLASH_PLACEHOLDER__"></div>
+<script>(function(){var p=window.location.pathname;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('#')||h.startsWith('javascript'))return;if(h==='/'&&p==='/'){a.classList.add('active')}else if(h!=='/'&&p.startsWith(h)){a.classList.add('active')}})})()</script>
+</body>
+</html>

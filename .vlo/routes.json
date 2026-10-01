@@ -1,0 +1,37 @@
+{
+  "/": {
+    "auth": true,
+    "guest": false,
+    "roles": []
+  },
+  "/charts": {
+    "auth": false,
+    "guest": false,
+    "roles": [
+      "Admin",
+      "Editor",
+      "User"
+    ]
+  },
+  "/dashboard": {
+    "auth": true,
+    "guest": false,
+    "roles": [
+      "Admin",
+      "Editor",
+      "User"
+    ]
+  },
+  "/login": {
+    "auth": false,
+    "guest": true,
+    "roles": []
+  },
+  "/users": {
+    "auth": true,
+    "guest": false,
+    "roles": [
+      "Admin"
+    ]
+  }
+}

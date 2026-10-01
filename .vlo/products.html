@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+<meta name="csrf-token" content="__VLO_CSRF_PLACEHOLDER__">
+
+<style>
+.products-page{max-width:1150px;margin:0 auto;padding:45px 24px 70px;color:#fff;} .products-header{display:flex;align-items:flex-end;justify-content:space-between;gap:25px;margin-bottom:30px;} .products-eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;color:#00f5ff;margin-bottom:7px;} .products-header h1{margin:0;font-size:34px;line-height:1.15;} .products-header p{margin:9px 0 0;color:#888;font-size:15px;} .header-actions{display:flex;align-items:center;gap:12px;} .products-list-card{margin-top:24px;} .products-table-wrap{overflow-x:auto;} .products-table{width:100%;border-collapse:collapse;min-width:900px;} .products-table th{padding:13px 14px;text-align:left;background:#171717;color:#777;font-size:11px;text-transform:uppercase;letter-spacing:.7px;border-bottom:1px solid #292929;} .products-table td{padding:8px 5px;border-bottom:1px solid #222;color:#ccc;font-size:13px;vertical-align:middle;} .products-table tbody tr:hover{background:#161616;} .products-table th:nth-child(4),.products-table td:nth-child(4){text-align:left;} .products-table th:nth-child(5),.products-table td:nth-child(5),.products-table th:nth-child(7),.products-table td:nth-child(7){text-align:center;} .product-image{width:44px;height:44px;object-fit:cover;border-radius:6px;border:1px solid #333;} .product-image-placeholder{width:44px;height:44px;display:grid;place-items:center;border-radius:6px;background:#1a1a1a;border:1px solid #333;font-size:18px;} .product-title{font-weight:600;color:#fff;} .product-premium{font-weight:800;} .product-description{max-width:240px;color:#777;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} .product-price{font-weight:600;color:#00ff88;} .product-expensive{font-weight:800;} .stock-good{color:#00ff88;font-weight:600;} .stock-low{color:#ff6666;font-weight:700;} .stock-empty{color:#ff4444;font-weight:800;} .product-actions{display:flex;justify-content:center;gap:6px;} .empty-products{text-align:center;padding:55px 20px;color:#666;} .empty-icon{font-size:35px;margin-bottom:10px;} .empty-products h3{margin:0 0 7px;color:#aaa;} .empty-products p{margin:0;font-size:13px;} .vlo-btn{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;} .vlo-btn-primary{background:#00f5ff;color:#000;} .vlo-btn-primary:hover{background:#00d4dd;} .vlo-btn-secondary{background:transparent;border:1px solid #444;color:#ccc;} .vlo-btn-secondary:hover{border-color:#00f5ff;color:#00f5ff;} .vlo-btn-danger{background:transparent;border:1px solid #444;color:#ff6666;} .vlo-btn-danger:hover{background:#351717;border-color:#ff6666;} .modal-form{display:flex;flex-direction:column;gap:16px;} .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;} .form-field{display:flex;flex-direction:column;gap:7px;} .form-field label{font-size:12px;font-weight:600;color:#aaa;} .form-field input{padding:10px 12px;background:#171717;border:1px solid #333;border-radius:6px;color:#fff;font-size:14px;outline:none;} .form-field input:focus{border-color:#00f5ff;} .modal-product-name{color:#888;font-size:13px;margin-bottom:2px;} .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;} .delete-confirmation{color:#ccc;} .delete-confirmation p{margin:0 0 12px;line-height:1.6;} .delete-warning{color:#ff8888;font-size:13px;} .current-product-image{display:flex;align-items:center;gap:10px;} .current-product-image span{color:#777;font-size:12px;} .product-edit-image{width:50px;height:50px;object-fit:cover;border-radius:6px;border:1px solid #333;} @media (max-width:700px){.products-page{padding:30px 15px 50px;} .products-header{align-items:flex-start;flex-direction:column;} .products-header h1{font-size:28px;} .header-actions{width:100%;justify-content:flex-start;} .form-grid{grid-template-columns:1fr;}} .vlo-toast{--toast-delay:3s;position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;align-items:center;gap:12px;width:max-content;max-width:380px;padding:12px 16px;background:#1a1a2e;color:#fff;border:1px solid #333;border-left:4px solid var(--toast-border,#00f5ff);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:vloToastIn 0.35s ease,vloToastOut 0.4s ease var(--toast-delay) forwards;} .vlo-toast-success{--toast-border:#00ff88;} .vlo-toast-error{--toast-border:#ff4444;} .vlo-toast-info{--toast-border:#00f5ff;} .vlo-toast-dur-short{--toast-delay:2s;} .vlo-toast-dur-medium{--toast-delay:4s;} .vlo-toast-dur-long{--toast-delay:6s;} .vlo-toast-dur-2s{--toast-delay:2s;} .vlo-toast-dur-3s{--toast-delay:3s;} .vlo-toast-dur-4s{--toast-delay:4s;} .vlo-toast-dur-5s{--toast-delay:5s;} .vlo-toast-dur-6s{--toast-delay:6s;} .vlo-toast-icon{flex:0 0 auto;font-size:1.25rem;line-height:1;} .vlo-toast-content{display:flex;flex-direction:column;gap:2px;} .vlo-toast-title{display:block;font-size:0.9rem;line-height:1.2;} .vlo-toast-description{display:block;color:#aaa;font-size:0.78rem;line-height:1.3;} @keyframes vloToastIn{from{opacity:0;transform:translateX(40px);} to{opacity:1;transform:translateX(0);}} @keyframes vloToastOut{to{opacity:0;transform:translateX(40px);}} .vlo-badge{padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:bold;} .vlo-badge.primary{background:#00f5ff;color:#000;} .vlo-badge.success{background:#00ff88;color:#000;} .vlo-badge.warning{background:#ffaa00;color:#000;} .vlo-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;} .vlo-modal-overlay.active{display:flex;} .vlo-modal-box{background:#1e293b;padding:2rem;border-radius:12px;border:1px solid #334155;width:100%;max-width:500px;} .vlo-file-input{display:block;width:100%;padding:8px 10px;font-size:14px;line-height:1.5;color:#374151;background:#ffffff;border:1px solid #d1d5db;border-radius:6px;cursor:pointer;transition:border-color 0.15s ease,box-shadow 0.15s ease;} .vlo-file-input:focus{outline:none;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.15);} .vlo-file-input:disabled{background:#f3f4f6;cursor:not-allowed;opacity:0.65;} .vlo-file-input::file-selector-button{padding:8px 14px;margin-right:10px;font-size:14px;font-weight:500;line-height:1.4;color:#ffffff;background:#2563eb;border:0;border-radius:4px;cursor:pointer;transition:background-color 0.15s ease;} .vlo-file-input.primary::file-selector-button{background:#2563eb;} .vlo-file-input.primary:hover:not(:disabled)::file-selector-button{background:#1d4ed8;} .vlo-file-input.secondary::file-selector-button{color:#374151;background:#f3f4f6;border:1px solid #d1d5db;} .vlo-file-input.secondary:hover:not(:disabled)::file-selector-button{background:#e5e7eb;} .vlo-file-input.danger::file-selector-button{background:#dc2626;} .vlo-file-input.danger:hover:not(:disabled)::file-selector-button{background:#b91c1c;} .vlo-file-input:disabled::file-selector-button{cursor:not-allowed;} .card{background:#0d0d0d;border:1px solid var(--border,#222);border-radius:12px;padding:30px;display:flex;flex-direction:column;} .card h3{font-size:1.5rem;margin-bottom:8px;color:#fff;} .card-desc{color:#888;font-size:0.95rem;margin-bottom:20px;} .vlo-datatable-toolbar{display:flex;flex-direction:column;gap:12px;margin:20px 0 14px;} .vlo-toolbar-form{display:flex;align-items:center;gap:12px;flex-wrap:wrap;} .vlo-search-group{position:relative;display:flex;align-items:center;flex:1;min-width:200px;max-width:360px;} .vlo-search-icon{position:absolute;left:12px;font-size:0.85rem;opacity:0.5;pointer-events:none;} .vlo-search-input{width:100%;padding:8px 36px 8px 36px;border:1px solid var(--border,#292929);border-radius:7px;background:var(--surface,#111);color:var(--text,#eee);font-size:0.75rem;outline:none;transition:border-color 0.2s ease;} .vlo-search-input:focus{border-color:var(--primary,#00f5ff);box-shadow:0 0 0 2px rgba(0,245,255,0.1);} .vlo-search-input::placeholder{color:#555;} .vlo-search-clear{position:absolute;right:10px;color:#666;text-decoration:none;font-size:0.75rem;padding:4px;border-radius:4px;transition:color 0.2s;line-height:1;} .vlo-search-clear:hover{color:#ff4444;} .vlo-control-group{display:flex;align-items:center;gap:6px;flex-shrink:0;} .vlo-control-label{color:#777;font-size:0.75rem;white-space:nowrap;} .vlo-control-input{padding:8px 12px;border:1px solid var(--border,#292929);border-radius:7px;background:var(--surface,#111);color:var(--text,#eee);font-size:0.75rem;outline:none;cursor:pointer;transition:border-color 0.2s;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23777' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:28px;} .vlo-control-input:focus{border-color:var(--primary,#00f5ff);} .vlo-control-input:disabled{opacity:0.5;cursor:not-allowed;} .vlo-order-input{min-width:76px;} .vlo-limit-input{min-width:68px;} .vlo-active-filters{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);flex-wrap:wrap;} .vlo-filter-tags{display:flex;flex-wrap:wrap;gap:8px;align-items:center;} .vlo-filter-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border:1px solid rgba(0,245,255,0.2);border-radius:7px;background:rgba(0,245,255,0.04);color:#aaa;font-size:0.72rem;} .vlo-filter-tag strong{color:var(--primary,#00f5ff);} .vlo-filter-remove{color:#ff6680;text-decoration:none;margin-left:2px;font-weight:600;font-size:0.7rem;transition:color 0.15s;} .vlo-filter-remove:hover{color:#ff4444;text-decoration:underline;} .vlo-clear-all{color:#ff6680;font-size:0.72rem;text-decoration:none;font-weight:600;white-space:nowrap;transition:color 0.15s;} .vlo-clear-all:hover{color:#ff4444;text-decoration:underline;} @media (max-width:768px){.vlo-toolbar-form{flex-direction:column;align-items:stretch;} .vlo-search-group{max-width:none;width:100%;} .vlo-control-group{width:100%;} .vlo-control-input{flex:1;}} .vlo-pagination{display:flex;align-items:center;justify-content:center;gap:16px;padding:20px 0;} .pagination-btn{display:inline-flex;align-items:center;padding:8px 16px;border:1px solid var(--border,#292929);border-radius:8px;color:var(--text,#ccc);text-decoration:none;font-size:0.8rem;font-weight:600;transition:all 0.2s ease;} .pagination-btn:hover:not(.disabled){border-color:var(--primary,#00f5ff);color:var(--primary,#00f5ff);background:rgba(0,245,255,0.05);} .pagination-btn.disabled{opacity:0.3;cursor:not-allowed;pointer-events:none;} .pagination-info{display:flex;align-items:center;gap:6px;font-size:0.85rem;} .pagination-current{color:var(--primary,#00f5ff);font-weight:700;} .pagination-separator{color:#555;} .pagination-total{color:#888;} .navbar{width:100%;box-sizing:border-box;color:#a0a0a0;background:var(--background);border-bottom:1px solid var(--border);z-index:100;} .navbar-inner{width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1rem 2rem;} .brand{color:var(--primary);text-decoration:none;font-weight:700;font-size:1.5rem;line-height:1;white-space:nowrap;transition:opacity .2s ease;} .brand:hover{opacity:.8;} .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;} .nav-links a{display:inline-block;color:#a0a0a0;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 16px;text-decoration:none;font-weight:600;transition:color .2s ease,background .2s ease,border-color .2s ease;} .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);} .nav-links a.active{color:var(--primary);background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.4);} .nav-links a.active:hover{color:#fff;background:rgba(0,245,255,.14);} .navbar.default{background:var(--background);} .navbar.light{background:#fff;color:#374151;border-color:#e5e7eb;} .navbar.light .brand{color:#111827;} .navbar.light .nav-links a{color:#4b5563;} .navbar.light .nav-links a:hover{color:#111827;background:#f3f4f6;} .navbar.light .nav-links a.active{color:var(--primary);background:rgba(0,0,0,.05);border-color:#d1d5db;} .navbar.dark{background:#111827;border-color:#374151;} .navbar.dark .brand{color:#fff;} .navbar.dark .nav-links a{color:#d1d5db;} .navbar.dark .nav-links a:hover{color:#fff;background:#1f2937;} .navbar.dark .nav-links a.active{color:#fff;background:#374151;border-color:#6b7280;} .navbar.primary{background:var(--primary);border-color:transparent;} .navbar.primary .brand{color:#fff;} .navbar.primary .nav-links a{color:rgba(255,255,255,.85);} .navbar.primary .nav-links a:hover{color:#fff;background:rgba(255,255,255,.12);} .navbar.primary .nav-links a.active{color:var(--primary);background:#fff;border-color:#fff;} .navbar.outline{background:transparent;} .navbar.outline .nav-links a{color:var(--primary);} .navbar.outline .nav-links a:hover{color:var(--primary);background:rgba(0,0,0,.03);border-color:var(--primary);} .navbar.outline .nav-links a.active{color:var(--primary);background:transparent;border-color:var(--primary);} .navbar.small .navbar-inner{padding:.65rem 1.25rem;} .navbar.small .brand{font-size:1.25rem;} .navbar.small .nav-links a{padding:6px 10px;font-size:.85rem;} .navbar.large .navbar-inner{padding:1.25rem 2.5rem;} .navbar.large .brand{font-size:1.7rem;} .navbar.large .nav-links a{padding:10px 18px;} .navbar.shadow-small{box-shadow:0 2px 8px rgba(0,0,0,.08);} .navbar.shadow-medium{box-shadow:0 4px 16px rgba(0,0,0,.12);} .navbar.shadow-large{box-shadow:0 8px 30px rgba(0,0,0,.18);} .navbar.sticky{position:sticky;top:0;} .navbar-toggle-input{position:absolute;opacity:0;pointer-events:none;} .navbar-toggle{display:none;width:40px;height:40px;box-sizing:border-box;padding:8px;border:1px solid var(--border);border-radius:7px;cursor:pointer;} .navbar-toggle span{display:block;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .2s ease;} @media (max-width:768px){.navbar.collapse .navbar-inner{flex-wrap:wrap;} .navbar.collapse .navbar-toggle{display:block;} .navbar.collapse .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-top:.5rem;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .nav-links{display:flex;} .navbar.collapse .nav-links a{width:100%;box-sizing:border-box;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(2){opacity:0;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}} @media (max-width:768px){.navbar.wrap .navbar-inner{flex-wrap:wrap;} .navbar.wrap .nav-links{width:100%;flex-wrap:wrap;justify-content:flex-start;}} @media (max-width:768px){.navbar.scroll .nav-links{max-width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;} .navbar.scroll .nav-links a{flex-shrink:0;white-space:nowrap;}}
+</style>
+</head>
+<body>
+<nav class="navbar sticky collapse sticky collapse">
+    <input class="navbar-toggle-input" type="checkbox" id="navbar-toggle">
+    <div class="navbar-inner">
+        <a class="brand" href="">VLO</a>
+        <label class="navbar-toggle" for="navbar-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/components">Components</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/docs">Docs</a>
+    {if logged_in}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/api/auth/logout">Logout ({{user_name}})</a>
+    {else}
+        <a href="/login">Login</a>
+    {/if}
+        </div>
+    </div>
+</nav>
+  <div class="products-page">
+    {if flash_messages}
+      <div class="vlo-toast vlo-toast- vlo-toast-dur-short">
+    <span class="vlo-toast-icon"></span>
+    <div class="vlo-toast-content">
+        <strong class="vlo-toast-title"></strong>
+        <span class="vlo-toast-description"></span>
+    </div>
+</div>
+    {/if}
+    <!-- ═══ HEADER ═══ -->
+    <div class="products-header">
+      <div>
+        <div class="products-eyebrow">VLO / API</div>
+        <h1>Product Management</h1>
+        <p>Manage your product catalog using the VLO REST CRUD API.</p>
+      </div>
+      <div class="header-actions">
+        <span class="vlo-badge success">REST API</span>
+        <button type="button" class="vlo-btn vlo-btn-primary" onclick="document.getElementById('add-product-modal').classList.add('active')">
+          + Add Product
+        </button>
+      </div>
+    </div>
+    <!-- ═══ ADD PRODUCT MODAL ═══ -->
+    <div class="vlo-modal-overlay" id="add-product-modal">
+    <div class="vlo-modal-box">
+            <h2>Add New Product</h2>
+      <form class="modal-form" enctype="multipart/form-data" onsubmit="event.preventDefault();fetch(&quot;/api/products&quot;,{credentials:&#39;same-origin&#39;,method:&#39;POST&#39;,headers:{&#39;X-CSRF-Token&#39;:document.querySelector(&#39;meta[name=&quot;csrf-token&quot;]&#39;)?.content||&#39;&#39;},body:new FormData(event.currentTarget)}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.reload()}).catch(e=&gt;{console.error(&#39;[VLO POST]&#39;,e);window.location.reload()});return false">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Product Title</label>
+            <input type="text" name="title" placeholder="e.g. Mechanical Keyboard" required />
+          </div>
+          <div class="form-field">
+            <label>Description</label>
+            <input type="text" name="description" placeholder="Product description" />
+          </div>
+          <div class="form-field">
+            <label>Price</label>
+            <input type="number" name="price" placeholder="0.00" step="0.01" min="0" required />
+          </div>
+          <div class="form-field">
+            <label>Stock</label>
+            <input type="number" name="stock" placeholder="0" min="0" required />
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Product Image</label>
+          <input id=""
+    class="vlo-file-input primary"
+    type="file"
+    name="image"
+    accept="image/*" button="Choose Image">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="vlo-btn vlo-btn-secondary" onclick="document.getElementById('add-product-modal').classList.remove('active')">Cancel</button>
+          <button type="submit" class="vlo-btn vlo-btn-primary">Add Product</button>
+        </div>
+      </form>
+    </div>
+</div>
+    <!-- ═══ PRODUCTS LIST ═══ -->
+    <div class="products-list-card">
+      <div class="card">
+    <h3>Products</h3>
+    <p class="card-desc">{{total}} products found.</p>
+        <!-- ═══ DATA TABLE TOOLBAR (Search + Sort + Order + Limit) ═══ -->
+        <div class="vlo-datatable-toolbar">
+  <!-- Main Toolbar Row -->
+  <form method="get" action="" class="vlo-toolbar-form">
+    <!-- Search Input -->
+    <div class="vlo-search-group">
+      <span class="vlo-search-icon">🔍</span>
+      <input 
+        type="text" 
+        name="search" 
+        class="vlo-search-input" 
+        placeholder="Search..." 
+        value="{{search}}"
+        autocomplete="off"
+      />
+      {if search}
+        <a href="?{if sort}sort={{sort}}&order={{order}}{/if}{if limit && limit != 20}&limit={{limit}}{/if}{if _columns}&_columns=title,description{/if}" class="vlo-search-clear">✕</a>
+      {/if}
+    </div>
+    <!-- Sort Column -->
+    <div class="vlo-control-group">
+      <label class="vlo-control-label">Sort:</label>
+      <select name="sort" class="vlo-control-input" onchange="this.form.submit()">
+        <option value="">None</option>
+        <option value="id" {if sort == "id"}selected{/if}>ID</option>
+        <option value="title" {if sort == "title"}selected{/if}>Title</option>
+        <option value="price" {if sort == "price"}selected{/if}>Price</option>
+        <option value="stock" {if sort == "stock"}selected{/if}>Stock</option>
+        <option value="created_at" {if sort == "created_at"}selected{/if}>Date</option>
+      </select>
+    </div>
+    <!-- Order Direction -->
+    <div class="vlo-control-group">
+      <select name="order" class="vlo-control-input vlo-order-input" onchange="this.form.submit()">
+        <option value="asc" {if order == "asc"}selected{/if}>↑ Asc</option>
+        <option value="desc" {if order == "desc"}selected{/if}>↓ Desc</option>
+      </select>
+    </div>
+    <!-- Limit Selector (hardcoded for SSR state preservation) -->
+    <div class="vlo-control-group">
+      <label class="vlo-control-label">Show:</label>
+      <select name="limit" class="vlo-control-input vlo-limit-input" onchange="this.form.submit()">
+        <option value="10" {if limit == 10}selected{/if}>10</option>
+        <option value="20" {if limit == 20}selected{/if}>20</option>
+        <option value="30" {if limit == 30}selected{/if}>30</option>
+        <option value="50" {if limit == 50}selected{/if}>50</option>
+        <option value="100" {if limit == 100}selected{/if}>100</option>
+      </select>
+    </div>
+    <!-- Hidden Fields for State Preservation -->
+      <input type="hidden" name="_columns" value="title,description" />
+    {if page && page != 1}
+      <input type="hidden" name="page" value="{{page}}" />
+    {/if}
+  </form>
+  <!-- Active Filters Row -->
+  {if search || sort || (limit && limit != 20)}
+    <div class="vlo-active-filters">
+      <div class="vlo-filter-tags">
+        {if search}
+          <span class="vlo-filter-tag">
+            Search: <strong>"{{search}}"</strong>
+            <a href="?{if sort}sort={{sort}}&order={{order}}{/if}{if limit && limit != 20}&limit={{limit}}{/if}{if _columns}&_columns=title,description{/if}" class="vlo-filter-remove">✕</a>
+          </span>
+        {/if}
+        {if sort}
+          <span class="vlo-filter-tag">
+            Sort: <strong>{{sort}}</strong> ({{order}})
+            <a href="?{if search}search={{search}}{/if}{if limit && limit != 20}&limit={{limit}}{/if}{if _columns}&_columns=title,description{/if}" class="vlo-filter-remove">✕</a>
+          </span>
+        {/if}
+        {if limit && limit != 20}
+          <span class="vlo-filter-tag">
+            Per page: <strong>{{limit}}</strong>
+            <a href="?{if search}search={{search}}{/if}{if sort}&sort={{sort}}&order={{order}}{/if}{if _columns}&_columns=title,description{/if}" class="vlo-filter-remove">✕</a>
+          </span>
+        {/if}
+      </div>
+      <a href="?" class="vlo-clear-all">Clear all</a>
+    </div>
+  {/if}
+</div>
+        <!-- Data Table -->
+        <div class="products-table-wrap">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody data-source="/api/products">
+              {for product in products}
+              <tr>
+                <td>#{{product.id}}</td>
+                <td>
+                  {if product.image}
+                    <img src="{{product.image}}" alt="{{product.title}}" class="product-image" loading="lazy" />
+                  {else}
+                    <div class="product-image-placeholder">📦</div>
+                  {/if}
+                </td>
+                <td>
+                  <div class="product-title {if product.price > 500}product-premium{/if}">{{product.title}}</div>
+                </td>
+                <td><div class="product-description">{{product.description}}</div></td>
+                <td>
+                  <span class="product-price {if product.price > 500}product-expensive{/if}">${{product.price}}</span>
+                </td>
+                <td>
+                  {if product.stock == 0}
+                    <span class="stock-empty">Out of Stock</span>
+                  {else}
+                    {if product.stock < 5}
+                      <span class="stock-low">{{product.stock}} left</span>
+                    {else}
+                      <span class="stock-good">{{product.stock}}</span>
+                    {/if}
+                  {/if}
+                </td>
+                <td><span>{{product.created_at|date}}</span></td>
+                <td>
+                  <div class="product-actions">
+                    <button type="button" class="vlo-btn vlo-btn-secondary" onclick="document.getElementById('edit-{{product.id}}').classList.add('active')" title="Edit">✎</button>
+                    <button type="button" class="vlo-btn vlo-btn-danger" onclick="document.getElementById('del-{{product.id}}').classList.add('active')" title="Delete">✕</button>
+                  </div>
+                  <!-- Edit Modal -->
+                  <div class="vlo-modal-overlay" id="edit-{{product.id}}">
+    <div class="vlo-modal-box">
+            <h2>Edit Product</h2>
+                    <form class="modal-form" enctype="multipart/form-data" onsubmit="event.preventDefault();fetch(&quot;/api/products/{{product.id}}&quot;,{credentials:&#39;same-origin&#39;,method:&#39;PUT&#39;,headers:{&#39;Content-Type&#39;:&#39;application/x-www-form-urlencoded&#39;,&#39;X-CSRF-Token&#39;:document.querySelector(&#39;meta[name=&quot;csrf-token&quot;]&#39;)?.content||&#39;&#39;},body:new URLSearchParams(new FormData(event.currentTarget))}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.reload()}).catch(e=&gt;{console.error(&#39;[VLO PUT]&#39;,e);window.location.reload()});return false">
+                      <div class="modal-product-name">Editing: <strong>{{product.title}}</strong></div>
+                      <div class="form-grid">
+                        <div class="form-field"><label>Title</label><input type="text" name="title" value="{{product.title}}" required /></div>
+                        <div class="form-field"><label>Description</label><input type="text" name="description" value="{{product.description}}" /></div>
+                        <div class="form-field"><label>Price</label><input type="number" name="price" value="{{product.price}}" step="0.01" min="0" required /></div>
+                        <div class="form-field"><label>Stock</label><input type="number" name="stock" value="{{product.stock}}" min="0" required /></div>
+                      </div>
+                      <div class="form-field"><label>Image</label><input id=""
+    class="vlo-file-input secondary"
+    type="file"
+    name="image"
+    accept="image/*" button="Replace Image"></div>
+                      {if product.image}
+                        <div class="current-product-image"><span>Current</span><img src="{{product.image}}" alt="{{product.title}}" class="product-edit-image" loading="lazy" /></div>
+                      {/if}
+                      <div class="modal-actions">
+                        <button type="button" class="vlo-btn vlo-btn-secondary" onclick="document.getElementById('edit-{{product.id}}').classList.remove('active')">Cancel</button>
+                        <button type="submit" class="vlo-btn vlo-btn-primary">Save Changes</button>
+                      </div>
+                    </form>
+    </div>
+</div>
+                  <!-- Delete Modal -->
+                  <div class="vlo-modal-overlay" id="del-{{product.id}}">
+    <div class="vlo-modal-box">
+            <h2>Delete Product</h2>
+                    <div class="delete-confirmation">
+                      <p>Are you sure you want to delete <strong>{{product.title}}</strong>?</p>
+                      <p class="delete-warning">This action cannot be undone.</p>
+                      <div class="modal-actions">
+                        <button type="button" class="vlo-btn vlo-btn-secondary" onclick="document.getElementById('del-{{product.id}}').classList.remove('active')">Cancel</button>
+                        <button type="button" class="vlo-btn vlo-btn-danger" onclick="if(true){fetch(&quot;/api/products/{{product.id}}&quot;,{credentials:&#39;same-origin&#39;,method:&#39;DELETE&#39;,headers:{&#39;X-CSRF-Token&#39;:document.querySelector(&#39;meta[name=&quot;csrf-token&quot;]&#39;)?.content||&#39;&#39;}}).then(async r=&gt;{let d;try{d=await r.json()}catch(_){d={}}if(!r.ok){throw new Error(d.message||d.details||d.error||&#39;Request failed&#39;)}window.location.reload()}).catch(e=&gt;{console.error(&#39;[VLO DELETE]&#39;,e);window.location.reload()})}">Delete Product</button>
+                      </div>
+                    </div>
+    </div>
+</div>
+                </td>
+              </tr>
+              {else}
+              <tr>
+                <td colspan="8">
+                  <div class="empty-products">
+                    <div class="empty-icon">📦</div>
+                    <h3>No Products Found</h3>
+                    <p>{if search}No results for "{{search}}". Try a different search.{else}Add your first product using the button above.{/if}</p>
+                  </div>
+                </td>
+              </tr>
+              {/for}
+            </tbody>
+          </table>
+        </div>
+</div>
+      <nav class="vlo-pagination">
+    {if page > 1}
+        <a href="?page={{prev_page}}&limit={{limit}}{if search}&search={{search}}{/if}{if _columns}&_columns={{_columns}}{/if}{if sort}&sort={{sort}}&order={{order}}{/if}" class="pagination-btn">← Prev</a>
+    {else}
+        <span class="pagination-btn disabled">← Prev</span>
+    {/if}
+    <div class="pagination-info">
+        <span class="pagination-current">{{page}}</span>
+        <span class="pagination-separator">/</span>
+        <span class="pagination-total">{{total_pages}}</span>
+    </div>
+    {if page < total_pages}
+        <a href="?page={{next_page}}&limit={{limit}}{if search}&search={{search}}{/if}{if _columns}&_columns={{_columns}}{/if}{if sort}&sort={{sort}}&order={{order}}{/if}" class="pagination-btn pagination-next">Next →</a>
+    {else}
+        <span class="pagination-btn disabled">Next →</span>
+    {/if}
+</nav>
+    </div>
+  </div>
+<div id="__VLO_FLASH_PLACEHOLDER__"></div>
+<script>(function(){var p=window.location.pathname;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('#')||h.startsWith('javascript'))return;if(h==='/'&&p==='/'){a.classList.add('active')}else if(h!=='/'&&p.startsWith(h)){a.classList.add('active')}})})()</script>
+</body>
+</html>

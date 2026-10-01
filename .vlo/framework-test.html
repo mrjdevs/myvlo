@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLO Framework Test</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/style.css">
+<meta name="csrf-token" content="__VLO_CSRF_PLACEHOLDER__">
+
+<style>
+.vlo-badge{padding:4px 12px;border-radius:20px;font-size:0.8rem;font-weight:bold;} .vlo-badge.primary{background:#00f5ff;color:#000;} .vlo-badge.success{background:#00ff88;color:#000;} .vlo-badge.warning{background:#ffaa00;color:#000;} .card{background:#0d0d0d;border:1px solid var(--border,#222);border-radius:12px;padding:30px;display:flex;flex-direction:column;} .card h3{font-size:1.5rem;margin-bottom:8px;color:#fff;} .card-desc{color:#888;font-size:0.95rem;margin-bottom:20px;} .vlo-btn{background:#00f5ff;color:#000;padding:12px 24px;border-radius:8px;font-weight:bold;border:none;display:inline-block;text-align:center;cursor:pointer;transition:all 0.2s}.vlo-btn:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,245,255,.3)}.vlo-btn.secondary{background:transparent;color:#00f5ff;border:2px solid #00f5ff}.vlo-btn.ghost{background:transparent;color:#aaa} .slot-card{background:#111;border:1px solid #333;border-radius:10px;padding:20px;margin:20px 0;color:#eee} .slot-header{color:#00f5ff;font-size:1.2rem;font-weight:bold;margin-bottom:15px} .slot-body{padding:15px 0} .slot-footer{border-top:1px solid #333;padding-top:15px;color:#aaa} .vlo-input{background:#111;border:2px solid #333;color:#eee;padding:12px 16px;border-radius:8px;width:100%;font-size:1rem;transition:border 0.2s}.vlo-input:focus{outline:none;border-color:#00f5ff;box-shadow:0 0 0 3px rgba(0,245,255,.1)} .vlo-alert{padding:16px 20px;border-radius:12px;border-left:4px solid;} .vlo-alert.info{background:rgba(0,245,255,0.1);border-color:#00f5ff;} .vlo-alert.success{background:rgba(0,255,136,0.1);border-color:#00ff88;} .vlo-toast{--toast-delay:3s;position:fixed;bottom:20px;right:20px;z-index:99999;display:flex;align-items:center;gap:12px;width:max-content;max-width:380px;padding:12px 16px;background:#1a1a2e;color:#fff;border:1px solid #333;border-left:4px solid var(--toast-border,#00f5ff);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.4);animation:vloToastIn 0.35s ease,vloToastOut 0.4s ease var(--toast-delay) forwards;} .vlo-toast-success{--toast-border:#00ff88;} .vlo-toast-error{--toast-border:#ff4444;} .vlo-toast-info{--toast-border:#00f5ff;} .vlo-toast-dur-short{--toast-delay:2s;} .vlo-toast-dur-medium{--toast-delay:4s;} .vlo-toast-dur-long{--toast-delay:6s;} .vlo-toast-dur-2s{--toast-delay:2s;} .vlo-toast-dur-3s{--toast-delay:3s;} .vlo-toast-dur-4s{--toast-delay:4s;} .vlo-toast-dur-5s{--toast-delay:5s;} .vlo-toast-dur-6s{--toast-delay:6s;} .vlo-toast-icon{flex:0 0 auto;font-size:1.25rem;line-height:1;} .vlo-toast-content{display:flex;flex-direction:column;gap:2px;} .vlo-toast-title{display:block;font-size:0.9rem;line-height:1.2;} .vlo-toast-description{display:block;color:#aaa;font-size:0.78rem;line-height:1.3;} @keyframes vloToastIn{from{opacity:0;transform:translateX(40px);} to{opacity:1;transform:translateX(0);}} @keyframes vloToastOut{to{opacity:0;transform:translateX(40px);}} .vlo-link{background:#00f5ff;color:#000;padding:12px 24px;border-radius:8px;font-weight:bold;text-decoration:none;display:inline-block;text-align:center;transition:all .2s}.vlo-link:hover{transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,245,255,.3)}.vlo-link.secondary{background:transparent;color:#00f5ff;border:2px solid #00f5ff}.vlo-link.ghost{background:transparent;color:#aaa} .navbar{width:100%;box-sizing:border-box;color:#a0a0a0;background:var(--background);border-bottom:1px solid var(--border);z-index:100;} .navbar-inner{width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1rem 2rem;} .brand{color:var(--primary);text-decoration:none;font-weight:700;font-size:1.5rem;line-height:1;white-space:nowrap;transition:opacity .2s ease;} .brand:hover{opacity:.8;} .nav-links{display:flex;align-items:center;justify-content:flex-end;gap:.5rem;} .nav-links a{display:inline-block;color:#a0a0a0;background:transparent;border:1px solid transparent;border-radius:8px;padding:8px 16px;text-decoration:none;font-weight:600;transition:color .2s ease,background .2s ease,border-color .2s ease;} .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06);} .nav-links a.active{color:var(--primary);background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.4);} .nav-links a.active:hover{color:#fff;background:rgba(0,245,255,.14);} .navbar.default{background:var(--background);} .navbar.light{background:#fff;color:#374151;border-color:#e5e7eb;} .navbar.light .brand{color:#111827;} .navbar.light .nav-links a{color:#4b5563;} .navbar.light .nav-links a:hover{color:#111827;background:#f3f4f6;} .navbar.light .nav-links a.active{color:var(--primary);background:rgba(0,0,0,.05);border-color:#d1d5db;} .navbar.dark{background:#111827;border-color:#374151;} .navbar.dark .brand{color:#fff;} .navbar.dark .nav-links a{color:#d1d5db;} .navbar.dark .nav-links a:hover{color:#fff;background:#1f2937;} .navbar.dark .nav-links a.active{color:#fff;background:#374151;border-color:#6b7280;} .navbar.primary{background:var(--primary);border-color:transparent;} .navbar.primary .brand{color:#fff;} .navbar.primary .nav-links a{color:rgba(255,255,255,.85);} .navbar.primary .nav-links a:hover{color:#fff;background:rgba(255,255,255,.12);} .navbar.primary .nav-links a.active{color:var(--primary);background:#fff;border-color:#fff;} .navbar.outline{background:transparent;} .navbar.outline .nav-links a{color:var(--primary);} .navbar.outline .nav-links a:hover{color:var(--primary);background:rgba(0,0,0,.03);border-color:var(--primary);} .navbar.outline .nav-links a.active{color:var(--primary);background:transparent;border-color:var(--primary);} .navbar.small .navbar-inner{padding:.65rem 1.25rem;} .navbar.small .brand{font-size:1.25rem;} .navbar.small .nav-links a{padding:6px 10px;font-size:.85rem;} .navbar.large .navbar-inner{padding:1.25rem 2.5rem;} .navbar.large .brand{font-size:1.7rem;} .navbar.large .nav-links a{padding:10px 18px;} .navbar.shadow-small{box-shadow:0 2px 8px rgba(0,0,0,.08);} .navbar.shadow-medium{box-shadow:0 4px 16px rgba(0,0,0,.12);} .navbar.shadow-large{box-shadow:0 8px 30px rgba(0,0,0,.18);} .navbar.sticky{position:sticky;top:0;} .navbar-toggle-input{position:absolute;opacity:0;pointer-events:none;} .navbar-toggle{display:none;width:40px;height:40px;box-sizing:border-box;padding:8px;border:1px solid var(--border);border-radius:7px;cursor:pointer;} .navbar-toggle span{display:block;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .2s ease;} @media (max-width:768px){.navbar.collapse .navbar-inner{flex-wrap:wrap;} .navbar.collapse .navbar-toggle{display:block;} .navbar.collapse .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-top:.5rem;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .nav-links{display:flex;} .navbar.collapse .nav-links a{width:100%;box-sizing:border-box;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(2){opacity:0;} .navbar.collapse .navbar-toggle-input:checked ~ .navbar-inner .navbar-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}} @media (max-width:768px){.navbar.wrap .navbar-inner{flex-wrap:wrap;} .navbar.wrap .nav-links{width:100%;flex-wrap:wrap;justify-content:flex-start;}} @media (max-width:768px){.navbar.scroll .nav-links{max-width:100%;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;} .navbar.scroll .nav-links a{flex-shrink:0;white-space:nowrap;}}
+</style>
+</head>
+<body>
+<nav class="navbar sticky collapse sticky collapse">
+    <input class="navbar-toggle-input" type="checkbox" id="navbar-toggle">
+    <div class="navbar-inner">
+        <a class="brand" href="">VLO</a>
+        <label class="navbar-toggle" for="navbar-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/components">Components</a>
+    <a href="/pricing">Pricing</a>
+    <a href="/about">About</a>
+    <a href="/docs">Docs</a>
+    {if logged_in}
+        <a href="/dashboard">Dashboard</a>
+        <a href="/api/auth/logout">Logout ({{user_name}})</a>
+    {else}
+        <a href="/login">Login</a>
+    {/if}
+        </div>
+    </div>
+</nav>
+<div class="framework-test">
+    <div class="test-header">
+        <span class="vlo-badge success">VLO 0.5.0</span>
+        <h1>VLO Framework Test 0.5.0</h1>
+        <p>Component engine, props, children, slots, API and runtime verification.</p>
+    </div>
+    <div class="card">
+    <h3>Component Engine</h3>
+    <p class="card-desc">Testing all registered VLO components.</p>
+        <div class="test-grid">
+            <button type="" class="vlo-btn primary" >Primary Button</button>
+            <button type="" class="vlo-btn secondary" >Secondary Button</button>
+            <span class="vlo-badge success">Success Badge</span>
+            <span class="vlo-badge info">Info Badge</span>
+        </div>
+</div>
+    <h2>VLO 0.5.0 Slot Test</h2>
+    <div class="slot-card">
+    <div class="slot-header">
+        Custom Header
+    </div>
+    <div class="slot-body">
+        <p>This is the default slot content.</p>
+    </div>
+    <div class="slot-footer">
+        Custom Footer
+    </div>
+</div>
+    <hr />
+    <h2>Advanced Nested Component Test</h2>
+    <div class="slot-card">
+    <div class="slot-header">
+            <div class="header-main">
+                <span class="vlo-badge">Featured</span>
+                <h2>Advanced Slot Test</h2>
+            </div>
+            <div class="header-actions">
+                <button type="" class="vlo-btn" >Primary Action</button>
+                <button type="" class="vlo-btn" >Secondary Action</button>
+            </div>
+            <p>
+                This header contains multiple elements and nested components.
+            </p>
+    </div>
+    <div class="slot-body">
+        <section class="content-wrapper">
+            <h3>Default Slot Content</h3>
+            <p>
+                This paragraph belongs to the default slot and should appear
+                between the named header and footer slots.
+            </p>
+            <div class="content-grid">
+                <div class="card">
+                    <h4>First Card</h4>
+                    <p>Nested card inside the default slot.</p>
+                    <button type="" class="vlo-btn" >Card Action</button>
+</div>
+                <div class="card">
+                    <h4>Second Card</h4>
+                    <p>Another nested component inside default content.</p>
+                    <span class="vlo-badge">Nested Badge</span>
+                    <button type="" class="vlo-btn" >Another Action</button>
+</div>
+            </div>
+            <div class="form-section">
+                <label>User Information</label>
+                <Input type="text" placeholder="Enter username" class="vlo-input"  />
+                <Input type="email" placeholder="Enter email" class="vlo-input"  />
+                <div class="form-actions">
+                    <button type="" class="vlo-btn" >Save</button>
+                    <button type="" class="vlo-btn" >Cancel</button>
+                </div>
+            </div>
+            <div class="vlo-alert">
+    {if message}
+    <p>{{message}}</p>
+    {/if}
+                <strong>Important:</strong>
+                This alert is nested inside the default slot.
+</div>
+            <div class="nested-content">
+                <h4>Deeply Nested Content</h4>
+                <div>
+                    <p>Level 1</p>
+                    <div>
+                        <p>Level 2</p>
+                        <div>
+                            <p>Level 3</p>
+                            <span class="vlo-badge">Deep Badge</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="slot-footer">
+            <div class="footer-info">
+                <span class="vlo-badge">Status: Active</span>
+                <span>Footer information</span>
+            </div>
+            <div class="footer-actions">
+                <button type="" class="vlo-btn" >Back</button>
+                <button type="" class="vlo-btn" >Reset</button>
+                <button type="" class="vlo-btn" >Continue</button>
+            </div>
+            <p>
+                Footer can contain multiple elements, text, and components.
+            </p>
+    </div>
+</div>
+    <hr />
+    <div class="card">
+    <h3>Input Component</h3>
+    <p class="card-desc">Testing input props and classes.</p>
+        <Input type="text" placeholder="VLO Input Component"   / class="vlo-input vlo-input vlo-input">
+</div>
+    <div class="card">
+    <h3>Alert Component</h3>
+    <p class="card-desc">Testing alert props and variants.</p>
+        <div class="vlo-alert" description="Alert component rendered successfully." variant="success">
+    <strong>Success</strong>
+    {if message}
+    <p>{{message}}</p>
+    {/if}
+</div>
+        <div class="vlo-alert" description="Props are being passed correctly." variant="info">
+    <strong>Information</strong>
+    {if message}
+    <p>{{message}}</p>
+    {/if}
+</div>
+</div>
+    <div class="card">
+    <h3>Children Rendering</h3>
+    <p class="card-desc">Testing children inside Card.</p>
+        <div class="children-test">
+            <span class="vlo-badge success">Nested Badge</span>
+            <button type="" class="vlo-btn primary" >Nested Button</button>
+            <p>✓ Child components rendered inside Card.</p>
+        </div>
+</div>
+    <div class="card">
+    <h3>Toast Component</h3>
+    <p class="card-desc">Testing toast properties and rendering.</p>
+        <div class="vlo-toast vlo-toast-success vlo-toast-dur-">
+    <span class="vlo-toast-icon">✓</span>
+    <div class="vlo-toast-content">
+        <strong class="vlo-toast-title">Success Toast</strong>
+        <span class="vlo-toast-description">Toast component rendered successfully.</span>
+    </div>
+</div>
+        <div class="vlo-toast vlo-toast-info vlo-toast-dur-">
+    <span class="vlo-toast-icon">!</span>
+    <div class="vlo-toast-content">
+        <strong class="vlo-toast-title">Info Toast</strong>
+        <span class="vlo-toast-description">VLO component engine is working.</span>
+    </div>
+</div>
+</div>
+    <div class="card">
+    <h3>API Engine</h3>
+    <p class="card-desc">Testing VLO REST API routing.</p>
+        <div class="api-test">
+            <button type="" class="vlo-btn primary" onclick="testApi(&#39;/api/products&#39;)">GET Products</button>
+            <button type="" class="vlo-btn secondary" onclick="testApi(&#39;/api/users&#39;)">GET Users</button>
+        </div>
+        <pre id="api-result">API result will appear here...</pre>
+</div>
+    <div class="card">
+    <h3>Navigation</h3>
+    <p class="card-desc">Testing VLO Link component.</p>
+        <a href="/components" class="vlo-link ghost" >Open Components</a>
+        <a href="/docs" class="vlo-link secondary" >Open Docs</a>
+</div>
+    <div class="card">
+    <h3>Runtime Status</h3>
+    <p class="card-desc">Basic browser-side framework verification.</p>
+        <div class="vlo-alert" description="The framework test page rendered successfully." variant="success">
+    <strong>✓ VLO 0.5.0 Loaded</strong>
+    {if message}
+    <p>{{message}}</p>
+    {/if}
+</div>
+        <div class="vlo-alert" description="Browser JavaScript is running correctly." variant="success">
+    <strong>✓ JavaScript Loaded</strong>
+    {if message}
+    <p>{{message}}</p>
+    {/if}
+</div>
+</div>
+    <div class="card">
+    <h3>Attribute Test</h3>
+    <p class="card-desc">Testing component HTML attributes.</p>
+        <button type="" class="vlo-btn" id="test-button" onclick="alert(&#39;VLO 0.5.0 works&#39;)">Attribute Test</button>
+        <Input type="email" placeholder="Email" class="vlo-input"  />
+        <a href="https://example.com" class="vlo-link" target="_blank">External Link</a>
+</div>
+</div>
+<script>
+async function testApi(url) {
+    const result = document.getElementById('api-result');
+    result.textContent = 'Loading...';
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        result.textContent = JSON.stringify(data, null, 2);
+    } catch (error) {
+        result.textContent = 'API Error: ' + error.message;
+    }
+}
+</script>
+<div id="__VLO_FLASH_PLACEHOLDER__"></div>
+<script>(function(){var p=window.location.pathname;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');if(!h||h.startsWith('http')||h.startsWith('#')||h.startsWith('javascript'))return;if(h==='/'&&p==='/'){a.classList.add('active')}else if(h!=='/'&&p.startsWith(h)){a.classList.add('active')}})})()</script>
+</body>
+</html>
