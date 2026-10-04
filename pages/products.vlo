@@ -92,16 +92,14 @@
                   <span class="product-price {if product.price > 500}product-expensive{/if}">${{product.price}}</span>
                 </td>
                 <td>
-                  {if product.stock == 0}
-                    <span class="stock-empty">Out of Stock</span>
-                  {else}
-                    {if product.stock < 5}
-                      <span class="stock-low">{{product.stock| sync}} left</span>
+                  <span class="{if product.stock == 0}stock-empty{else if product.stock < 5}stock-low{else}stock-good{/if}">
+                    {if product.stock == 0}
+                      Out of Stock
                     {else}
-                      <span class="stock-good">{{product.stock| sync}}</span>
+                      {{product.stock | sync:"products"}}{if product.stock < 5} left{/if}
                     {/if}
-                  {/if}
-                </td>
+                  </span>
+                </td>>
                 <td><span>{{product.created_at|date}}</span></td>
                 <td>
                   <div class="product-actions">
