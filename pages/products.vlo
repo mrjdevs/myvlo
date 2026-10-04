@@ -96,9 +96,9 @@
                     <span class="stock-empty">Out of Stock</span>
                   {else}
                     {if product.stock < 5}
-                      <span class="stock-low">{{product.stock}} left</span>
+                      <span class="stock-low">{{product.stock| sync}} left</span>
                     {else}
-                      <span class="stock-good">{{product.stock}}</span>
+                      <span class="stock-good">{{product.stock| sync}}</span>
                     {/if}
                   {/if}
                 </td>
